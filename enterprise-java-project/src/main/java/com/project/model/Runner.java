@@ -11,11 +11,12 @@ import javax.persistence.OneToOne;
 public class Runner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @OneToOne(optional = false, mappedBy = "runnerId")
     private int id;
     private String name;
     private float delivery_fees;
     public RunnerStatus status;
+    @OneToOne(mappedBy = "runner")
+    private Orders order;
 
     public Runner(){}
 
@@ -39,6 +40,13 @@ public class Runner {
     
     public void setDeliveryFees(float deliveryFees){
         this.delivery_fees = deliveryFees;
+    }
+
+    public Orders getOrder(){
+        return order;
+    }
+    public void setOrder(Orders order){
+        this.order = order;
     }
     
 }

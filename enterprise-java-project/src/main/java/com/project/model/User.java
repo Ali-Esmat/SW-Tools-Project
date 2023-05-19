@@ -1,6 +1,5 @@
 package com.project.model;
 
-import com.project.enums.Role;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,10 +10,12 @@ import javax.persistence.OneToOne;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @OneToOne(optional = false, mappedBy = "ownerId")
     private int id;
     private String name;
-    public Role role;
+    
+    @OneToOne(mappedBy = "owner") 
+    private Restaurant restaurant;
+    // Attribute Role has been removed
 
     public User(){}
 
@@ -30,5 +31,12 @@ public class User {
     }
     public void setName(String name){
         this.name = name;
+    }
+
+    public Restaurant getRestaurant(){
+        return restaurant;
+    }
+    public void setRestaurant(Restaurant restaurant){
+        this.restaurant = restaurant;
     }
 }

@@ -17,7 +17,7 @@ public class Meal {
     
     @ManyToOne
     @JoinColumn(name = "restaurant_id") // This represents the database column
-    private int restaurantId;
+    private Restaurant restaurant;
 
     public Meal(){}
 
@@ -45,11 +45,11 @@ public class Meal {
         this.price = price;
     }
 
-    public int getRestaurantId(){
-        return restaurantId;
+    public Restaurant getRestaurantId(){
+        return restaurant;
     }
 
-    public void setRestaurantId(int restaurantId){
-        this.restaurantId = restaurantId;
+    public void setRestaurantId(Restaurant restaurant){
+        this.restaurant = restaurant;
     }
 }

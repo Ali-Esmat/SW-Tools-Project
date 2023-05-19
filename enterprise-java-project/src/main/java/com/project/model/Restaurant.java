@@ -1,5 +1,5 @@
 package com.project.model;
-import java.util.ArrayList;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,24 +10,24 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Resturant {
+public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
 
-    @OneToOne(optional = false)
-    @JoinColumn(name = "owner_id")
-    private int ownerId;
+    @OneToOne
+    @JoinColumn(name = "owner_id") // This is a database column
+    private User owner;
     
-    @OneToMany(mappedBy = "restaurantId")
-    private ArrayList<Meal> meals;
+    @OneToMany(mappedBy = "restaurant")
+    private Set<Meal> meals;
     
-    @OneToMany(mappedBy = "restaurantId")
-    private ArrayList<Order> orders;
+    @OneToMany(mappedBy = "restaurant")
+    private Set<Orders> orders;
 
-    public Resturant(){}
+    public Restaurant(){}
 
     public int getId(){
         return this.id;
@@ -43,24 +43,24 @@ public class Resturant {
         this.name = name;
     }
 
-    public int getOwnerId(){
-        return this.ownerId;
+    public User getOwner(){
+        return this.owner;
     }
-    public void setOwnerId(int OwnerId){
-        this.ownerId = OwnerId;
+    public void setOwnerId(User owner){
+        this.owner = owner;
     }
     
-    public ArrayList<Meal> getMeals(){
+    public Set<Meal> getMeals(){
         return meals;
     } 
-    public void setMeals(ArrayList<Meal> meals){
+    public void setMeals(Set<Meal> meals){
         this.meals = meals;
     }
 
-    public ArrayList<Order> getOrders(){
+    public Set<Orders> getOrders(){
         return orders;
     }
-    public void setOrders(ArrayList<Order> orders){
+    public void setOrders(Set<Orders> orders){
         this.orders = orders; 
     }
 

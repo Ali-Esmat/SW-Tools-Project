@@ -11,21 +11,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Order {
+public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private ArrayList<Meal> items;
     private float totalPrice;
-    @OneToOne(optional = false)
+    @OneToOne
     @JoinColumn(name = "runner_id") // Database Name
-    private int runnerId;
+    private Runner runner;
     @ManyToOne
     @JoinColumn(name = "restaurant_id") // Database Name
-    private int restaurantId;
+    private Restaurant restaurant;
     public OrderStatus status;
 
-    public Order(){}
+    public Orders(){}
 
     public int getId(){
         return id;
@@ -48,19 +48,19 @@ public class Order {
         totalPrice = total_price; 
     }
 
-    public int getRunnerId(){
-        return runnerId;
+    public Runner getRunnerId(){
+        return runner;
     }
 
-    public void setRunnerId(int runnerId){
-        this.runnerId = runnerId;
+    public void setRunnerId(Runner runner){
+        this.runner = runner;
     }
     
-    public int getRestaurantId(){
-        return restaurantId;
+    public Restaurant getRestaurantId(){
+        return restaurant;
     }
-    public void setRestaurantId(int id){
-        this.id = id;
+    public void setRestaurantId(Restaurant restaurant){
+        this.restaurant = restaurant;
     }
 
 }
