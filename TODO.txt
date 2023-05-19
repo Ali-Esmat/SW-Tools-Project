@@ -1,0 +1,3 @@
+- check on what default constructor of entities should do 
+- Verify that we Can randomly choose the database name like "restaurant_Id" 
+- Verfiy how approriate were enums used 
