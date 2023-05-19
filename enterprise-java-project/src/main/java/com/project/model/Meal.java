@@ -1,9 +1,13 @@
 package com.project.model;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -16,8 +20,16 @@ public class Meal {
     private float price;
     
     @ManyToOne
-    @JoinColumn(name = "restaurant_id") // This represents the database column
+    @JoinColumn(name = "restaurant_id") // Name of foreign key column in Meal table
     private Restaurant restaurant;
+
+    @ManyToMany
+    @JoinTable(
+        name = "MealXOrders",
+        joinColumns = @JoinColumn(name = "meal_id"), // Name of foreign key column to Meal table in MealXOrders table in database
+        inverseJoinColumns = @JoinColumn(name = "order_id") // Name of foreign key column to Order table in MealXOrders table in database
+    )
+    private Set<Orders> orders;
 
     public Meal(){}
 

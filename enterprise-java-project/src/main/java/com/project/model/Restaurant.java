@@ -18,7 +18,7 @@ public class Restaurant {
     private String name;
 
     @OneToOne
-    @JoinColumn(name = "owner_id") // This is a database column
+    @JoinColumn(name = "owner_id") // Name of foreign key column in Restaurant table in database
     private User owner;
     
     @OneToMany(mappedBy = "restaurant")

@@ -1,11 +1,14 @@
 package com.project.model;
 
 import com.project.enums.RunnerStatus;
+
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Runner {
@@ -15,8 +18,8 @@ public class Runner {
     private String name;
     private float delivery_fees;
     public RunnerStatus status;
-    @OneToOne(mappedBy = "runner")
-    private Orders order;
+    @OneToMany(mappedBy = "runner")
+    private Set<Orders> order;
 
     public Runner(){}
 
@@ -42,10 +45,10 @@ public class Runner {
         this.delivery_fees = deliveryFees;
     }
 
-    public Orders getOrder(){
+    public Set<Orders> getOrder(){
         return order;
     }
-    public void setOrder(Orders order){
+    public void setOrder(Set<Orders> order){
         this.order = order;
     }
     
