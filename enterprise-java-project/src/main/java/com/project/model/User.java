@@ -19,24 +19,29 @@ public class User {
 
     public User(){}
 
-    public int getId(){
+    public int getId() {
         return id;
     }
-    public void setId(int id){
+
+    public void setId(int id) {
         this.id = id;
     }
-    
-    public String getName(){
+
+    public String getName() {
         return name;
     }
-    public void setName(String name){
+
+    public void setName(String name) {
         this.name = name;
     }
 
-    public Restaurant getRestaurant(){
+    public Restaurant getRestaurant() {
         return restaurant;
     }
-    public void setRestaurant(Restaurant restaurant){
+
+    public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
+
+    
 }

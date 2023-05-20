@@ -91,6 +91,12 @@
     </dependencyManagement>
 
   <dependencies>
+
+    <dependency>
+      <groupId>javax.transaction</groupId>
+      <artifactId>transaction-api</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>javax.inject</groupId>
       <artifactId>javax.inject</artifactId>

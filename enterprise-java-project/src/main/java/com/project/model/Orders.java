@@ -26,47 +26,73 @@ public class Orders {
     @ManyToOne
     @JoinColumn(name = "restaurant_id") // Name of foreign key column in Orders table in database
     private Restaurant restaurant;
+    
     public OrderStatus status;
 
     @ManyToMany(mappedBy = "orders")
     private Set<Meal> meals;
 
+
     public Orders(){}
 
-    public int getId(){
+
+    public int getId() {
         return id;
     }
-    public void setId(int Id){
-        this.id = Id;
-    }
-    
-    public Set<Meal> getItems(){
-        return meals;
-    }
-    public void setItems(Set<Meal> meals){
-        this.meals = meals;
+
+
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public float getTotalPrice(){
-        return totalPrice; 
-    }
-    public void setTotalPrice(float total_price){
-        totalPrice = total_price; 
+
+    public float getTotalPrice() {
+        return totalPrice;
     }
 
-    public Runner getRunnerId(){
+
+    public void setTotalPrice(float totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+
+    public Runner getRunner() {
         return runner;
     }
 
-    public void setRunnerId(Runner runner){
+
+    public void setRunner(Runner runner) {
         this.runner = runner;
     }
-    
-    public Restaurant getRestaurantId(){
+
+
+    public Restaurant getRestaurant() {
         return restaurant;
     }
-    public void setRestaurantId(Restaurant restaurant){
+
+
+    public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
 
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+
+    public Set<Meal> getMeals() {
+        return meals;
+    }
+
+
+    public void setMeals(Set<Meal> meals) {
+        this.meals = meals;
+    }
+    
 }

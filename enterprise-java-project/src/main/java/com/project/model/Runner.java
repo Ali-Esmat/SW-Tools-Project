@@ -23,33 +23,45 @@ public class Runner {
 
     public Runner(){}
 
-    public int getId(){
+    public int getId() {
         return id;
     }
-    public void setId(int id){
+
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
-    public void setName(String name){
+
+    public void setName(String name) {
         this.name = name;
     }
-    
-    public float getDeliveryFees(){
+
+    public float getDelivery_fees() {
         return delivery_fees;
-    } 
-    
-    public void setDeliveryFees(float deliveryFees){
-        this.delivery_fees = deliveryFees;
     }
 
-    public Set<Orders> getOrder(){
+    public void setDelivery_fees(float delivery_fees) {
+        this.delivery_fees = delivery_fees;
+    }
+
+    public RunnerStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(RunnerStatus status) {
+        this.status = status;
+    }
+
+    public Set<Orders> getOrder() {
         return order;
     }
-    public void setOrder(Set<Orders> order){
+
+    public void setOrder(Set<Orders> order) {
         this.order = order;
     }
+
     
 }

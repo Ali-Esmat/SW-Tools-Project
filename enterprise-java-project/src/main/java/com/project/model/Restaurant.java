@@ -29,39 +29,45 @@ public class Restaurant {
 
     public Restaurant(){}
 
-    public int getId(){
-        return this.id;
+    public int getId() {
+        return id;
     }
-    public void setId(int id){
+
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getName(){
-        return this.name;
+    public String getName() {
+        return name;
     }
-    public void setName(String name){
+
+    public void setName(String name) {
         this.name = name;
     }
 
-    public User getOwner(){
-        return this.owner;
+    public User getOwner() {
+        return owner;
     }
-    public void setOwnerId(User owner){
+
+    public void setOwner(User owner) {
         this.owner = owner;
     }
-    
-    public Set<Meal> getMeals(){
+
+    public Set<Meal> getMeals() {
         return meals;
-    } 
-    public void setMeals(Set<Meal> meals){
+    }
+
+    public void setMeals(Set<Meal> meals) {
         this.meals = meals;
     }
 
-    public Set<Orders> getOrders(){
+    public Set<Orders> getOrders() {
         return orders;
     }
-    public void setOrders(Set<Orders> orders){
-        this.orders = orders; 
+
+    public void setOrders(Set<Orders> orders) {
+        this.orders = orders;
     }
 
+    
 }
