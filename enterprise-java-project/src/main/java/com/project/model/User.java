@@ -33,6 +33,9 @@ public class User {
     @OneToOne(optional = true, mappedBy = "user")
     private Runner runner;
 
+    @OneToOne(optional = true, mappedBy = "user")
+    private Customer customer;
+
     public User() {
     }
 
@@ -82,5 +85,13 @@ public class User {
 
     public void setRunner(Runner runner) {
         this.runner = runner;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

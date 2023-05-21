@@ -19,6 +19,9 @@ public class Role {
     @OneToMany(mappedBy = "role")
     private Set<User> users;
 
+    public Role() {
+    }
+
     public int getId() {
         return id;
     }

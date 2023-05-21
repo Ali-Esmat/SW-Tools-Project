@@ -1,28 +1,29 @@
 package com.project.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
 
 @Entity
-public class RestaurantOwner {
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull
     @OneToOne(optional = false)
     @JoinColumn(name = "userId")
     private User user;
 
-    @OneToOne(mappedBy = "owner")
-    private Restaurant restaurant;
+    @OneToMany(mappedBy = "customer")
+    private Set<Orders> orders;
 
-    public RestaurantOwner() {
+    public Customer() {
     }
 
     public int getId() {
@@ -41,11 +42,11 @@ public class RestaurantOwner {
         this.user = user;
     }
 
-    public Restaurant getRestaurant() {
-        return restaurant;
+    public Set<Orders> getOrders() {
+        return orders;
     }
 
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
+    public void setOrders(Set<Orders> orders) {
+        this.orders = orders;
     }
 }

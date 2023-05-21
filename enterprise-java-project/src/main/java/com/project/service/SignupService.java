@@ -10,6 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.project.repo.UserRepo;
+import com.project.service.request.CustomerRequest;
 import com.project.service.request.RestaurantOwnerRequest;
 import com.project.service.request.RunnerRequest;
 
@@ -40,4 +41,10 @@ public class SignupService {
         userRepo.createRestaurantOwner(ownerRequest);
     }
 
+    @POST
+    @Path("customer")
+    public void signupCustomer(CustomerRequest customerRequest) {
+        failIfUserWithSameNameExists(customerRequest.getName());
+        userRepo.createCustomer(customerRequest);
+    }
 }

@@ -8,10 +8,12 @@ import javax.persistence.TypedQuery;
 
 import com.project.enums.RoleEnum;
 import com.project.enums.RunnerStatusEnum;
+import com.project.model.Customer;
 import com.project.model.RestaurantOwner;
 import com.project.model.Role;
 import com.project.model.Runner;
 import com.project.model.User;
+import com.project.service.request.CustomerRequest;
 import com.project.service.request.RestaurantOwnerRequest;
 import com.project.service.request.RunnerRequest;
 import com.project.service.request.UserRequest;
@@ -74,5 +76,19 @@ public class UserRepo {
         TypedQuery<User> query = em.createQuery("select u from User u where u.name = :name", User.class);
         query.setParameter("name", name);
         return RepoUtil.getFirstResultOrNull(query);
+    }
+
+    public User createCustomer(CustomerRequest customerRequest) {
+        User user = createBareUser(customerRequest);
+        Role customerRole = roleRepo.getRoleByName(RoleEnum.CUSTOMER.toString());
+        user.setRole(customerRole);
+        em.persist(user);
+
+        Customer customer = new Customer();
+        customer.setUser(user);
+        em.persist(customer);
+
+        user.setCustomer(customer);
+        return user;
     }
 }

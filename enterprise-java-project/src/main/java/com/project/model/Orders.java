@@ -32,6 +32,10 @@ public class Orders {
     @ManyToMany(mappedBy = "orders")
     private Set<Meal> meals;
 
+    @ManyToOne
+    @JoinColumn(name = "customerId")
+    private Customer customer;
+
     public Orders() {
     }
 
@@ -82,4 +86,13 @@ public class Orders {
     public void setMeals(Set<Meal> meals) {
         this.meals = meals;
     }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
 }
