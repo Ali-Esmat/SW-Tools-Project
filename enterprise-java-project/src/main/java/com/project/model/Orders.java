@@ -2,6 +2,7 @@ package com.project.model;
 
 import com.project.enums.OrderStatusEnum;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -11,13 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private double totalPrice;
 
     @ManyToOne
     @JoinColumn(name = "runnerId") // Name of foreign key column in Orders table in database
@@ -36,6 +38,9 @@ public class Orders {
     @JoinColumn(name = "customerId")
     private Customer customer;
 
+    @Temporal(TemporalType.DATE)
+    private Date date;
+
     public Orders() {
     }
 
@@ -45,14 +50,6 @@ public class Orders {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
     }
 
     public Runner getRunner() {
@@ -93,6 +90,14 @@ public class Orders {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public Date getDate(){
+        return date;
+    }
+
+    public void setDate(Date date){
+        this.date = date;
     }
 
 }

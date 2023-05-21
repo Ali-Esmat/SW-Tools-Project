@@ -12,6 +12,7 @@ public class RoleRepo {
     @PersistenceContext(unitName = "project")
     private EntityManager em;
 
+    // Gets role object by using role name
     public Role getRoleByName(String name) {
         TypedQuery<Role> query = em.createQuery("select r from Role r where r.name = :name", Role.class);
         query.setParameter("name", name);
@@ -19,7 +20,7 @@ public class RoleRepo {
             return null;
         return query.getSingleResult();
     }
-
+    // Creates a new role in the database
     public Role createRole(String name) {
         Role role = new Role();
         role.setName(name);
