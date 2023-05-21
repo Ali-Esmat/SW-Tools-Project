@@ -10,6 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.project.repo.UserRepo;
+import com.project.service.request.RestaurantOwnerRequest;
 import com.project.service.request.RunnerRequest;
 
 @RequestScoped
@@ -31,4 +32,12 @@ public class SignupService {
         failIfUserWithSameNameExists(runnerRequest.getName());
         userRepo.createRunner(runnerRequest);
     }
+
+    @POST
+    @Path("owner")
+    public void signUpRestaurantOwner(RestaurantOwnerRequest ownerRequest) {
+        failIfUserWithSameNameExists(ownerRequest.getName());
+        userRepo.createRestaurantOwner(ownerRequest);
+    }
+
 }

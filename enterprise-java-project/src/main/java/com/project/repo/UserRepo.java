@@ -8,9 +8,11 @@ import javax.persistence.TypedQuery;
 
 import com.project.enums.RoleEnum;
 import com.project.enums.RunnerStatusEnum;
+import com.project.model.RestaurantOwner;
 import com.project.model.Role;
 import com.project.model.Runner;
 import com.project.model.User;
+import com.project.service.request.RestaurantOwnerRequest;
 import com.project.service.request.RunnerRequest;
 import com.project.service.request.UserRequest;
 
@@ -42,6 +44,20 @@ public class UserRepo {
         em.persist(runner);
 
         user.setRunner(runner);
+        return user;
+    }
+
+    public User createRestaurantOwner(RestaurantOwnerRequest ownerRequest) {
+        User user = createBareUser(ownerRequest);
+        Role ownerRole = roleRepo.getRoleByName(RoleEnum.RESTAURANT_OWNER.toString());
+        user.setRole(ownerRole);
+        em.persist(user);
+
+        RestaurantOwner owner = new RestaurantOwner();
+        owner.setUser(user);
+        em.persist(owner);
+
+        user.setRestaurantOwner(owner);
         return user;
     }
 

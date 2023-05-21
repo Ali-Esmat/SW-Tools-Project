@@ -16,6 +16,7 @@ public class Init {
 
     @PostConstruct
     public void load() {
-        roleRepo.createRole(RoleEnum.RUNNER.toString());
+        for (RoleEnum r : RoleEnum.values())
+            roleRepo.createRole(r.toString());
     }
 }
