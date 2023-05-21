@@ -1,6 +1,6 @@
 package com.project.service.request;
 
-import com.advancedtools.project.enums.RoleEnum;
+import com.project.enums.RoleEnum;
 
 public class RunnerRequest extends UserRequest {
     private double deliveryFees;
