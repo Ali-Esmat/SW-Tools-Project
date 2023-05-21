@@ -7,4 +7,5 @@ cd enterprise-java-project/
 ./create-sd.sh
 ```
 
-Alternatively, set the properties in the script manually in the JBoss web console.
+Alternatively, set the properties in the script manually in the JBoss web console:
+![security domain in web console](./security-domain.png)
