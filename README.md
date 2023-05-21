@@ -1,5 +1,15 @@
 # Setup instructions
+
+From a Linux environment run the `create-sd.sh` script in `enterprise-java-project`:
+
+```bash
+cd enterprise-java-project/
+./create-sd.sh
+```
+
+Alternatively,
 Add the security domain in `standalone-full.xml`
+
 ```xml
 <security-domain name="db" cache-type="default">
     <authentication>
@@ -14,3 +24,5 @@ Add the security domain in `standalone-full.xml`
     </authentication>
 </security-domain>
 ```
+
+Alternatively, set these properties manually in the JBoss web console.

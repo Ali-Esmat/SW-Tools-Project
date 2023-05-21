@@ -18,7 +18,7 @@ public class Meal {
     private int id;
 
     private String name;
-    private float price;
+    private double price;
 
     @ManyToOne
     @JoinColumn(name = "restaurantId") // Name of foreign key column in Meal table
@@ -52,11 +52,11 @@ public class Meal {
         this.name = name;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

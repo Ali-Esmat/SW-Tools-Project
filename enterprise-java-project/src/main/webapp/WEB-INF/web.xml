@@ -1,0 +1,18 @@
+<web-app>
+    <context-param>
+        <param-name>resteasy.role.based.security</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>All resources</web-resource-name>
+            <url-pattern>/api/*</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
+
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>db</realm-name>
+    </login-config>
+</web-app>

@@ -19,7 +19,7 @@ public class Runner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotNull
-    private float deliveryFees;
+    private double deliveryFees;
     @NotNull
     public RunnerStatusEnum status;
     @OneToOne(optional = false)
@@ -63,11 +63,11 @@ public class Runner {
         this.user = user;
     }
 
-    public float getDeliveryFees() {
+    public double getDeliveryFees() {
         return deliveryFees;
     }
 
-    public void setDeliveryFees(float deliveryFees) {
+    public void setDeliveryFees(double deliveryFees) {
         this.deliveryFees = deliveryFees;
     }
 }

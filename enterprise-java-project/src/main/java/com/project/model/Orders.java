@@ -17,7 +17,7 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private float totalPrice;
+    private double totalPrice;
 
     @ManyToOne
     @JoinColumn(name = "runnerId") // Name of foreign key column in Orders table in database
@@ -47,11 +47,11 @@ public class Orders {
         this.id = id;
     }
 
-    public float getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(float totalPrice) {
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
 

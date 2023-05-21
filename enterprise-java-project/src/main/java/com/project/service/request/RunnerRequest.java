@@ -1,13 +1,13 @@
 package com.project.service.request;
 
 public class RunnerRequest extends UserRequest {
-    private float deliveryFees;
+    private double deliveryFees;
 
-    public float getDeliveryFees() {
+    public double getDeliveryFees() {
         return deliveryFees;
     }
 
-    public void setDeliveryFees(float deliveryFees) {
+    public void setDeliveryFees(double deliveryFees) {
         this.deliveryFees = deliveryFees;
     }
 }

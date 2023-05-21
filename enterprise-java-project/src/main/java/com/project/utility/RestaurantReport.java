@@ -8,7 +8,7 @@ import com.project.model.Restaurant;
 
 public class RestaurantReport {
 
-    public float totalEarinings;
+    public double totalEarinings;
     public int numberOfCompletedOrders;
     public int numberOfCancelledOrders;
 
