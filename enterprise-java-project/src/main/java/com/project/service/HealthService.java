@@ -1,4 +1,4 @@
-package com.project.rest;
+package com.project.service;
 
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;

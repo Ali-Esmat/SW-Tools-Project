@@ -11,8 +11,8 @@ import com.project.enums.RunnerStatusEnum;
 import com.project.model.Role;
 import com.project.model.Runner;
 import com.project.model.User;
-import com.project.rest.request.RunnerRequest;
-import com.project.rest.request.UserRequest;
+import com.project.service.request.RunnerRequest;
+import com.project.service.request.UserRequest;
 
 @Stateless
 public class UserRepo {

@@ -1,4 +1,4 @@
-package com.project.rest.response;
+package com.project.service.response;
 
 public class LoginResponse {
     private String token;

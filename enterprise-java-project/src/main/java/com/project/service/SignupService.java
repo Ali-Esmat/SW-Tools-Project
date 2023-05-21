@@ -1,4 +1,4 @@
-package com.project.rest;
+package com.project.service;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -9,7 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.project.repo.UserRepo;
-import com.project.rest.request.RunnerRequest;
+import com.project.service.request.RunnerRequest;
 
 @RequestScoped
 @Path("signup")

@@ -1,4 +1,4 @@
-package com.project.rest;
+package com.project.service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

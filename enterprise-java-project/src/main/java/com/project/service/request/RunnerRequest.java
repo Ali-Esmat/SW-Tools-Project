@@ -1,4 +1,4 @@
-package com.project.rest.request;
+package com.project.service.request;
 
 public class RunnerRequest extends UserRequest {
     private float deliveryFees;

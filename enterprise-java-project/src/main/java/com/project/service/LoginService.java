@@ -1,4 +1,4 @@
-package com.project.rest;
+package com.project.service;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -11,8 +11,8 @@ import javax.ws.rs.core.MediaType;
 
 import com.project.model.User;
 import com.project.repo.UserRepo;
-import com.project.rest.request.LoginRequest;
-import com.project.rest.response.LoginResponse;
+import com.project.service.request.LoginRequest;
+import com.project.service.response.LoginResponse;
 
 @RequestScoped
 @Path("login")
