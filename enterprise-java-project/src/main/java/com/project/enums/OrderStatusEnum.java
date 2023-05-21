@@ -1,6 +1,6 @@
 package com.project.enums;
 
-public enum OrderStatus {
+public enum OrderStatusEnum {
     PREPARING,
     DELIVERED,
     CANCELED

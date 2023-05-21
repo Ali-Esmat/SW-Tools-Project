@@ -24,64 +24,64 @@ import com.project.utility.RestaurantReport;
 @Produces(MediaType.APPLICATION_JSON)
 public class RestaurantOwnerService {
 
-	@PersistenceContext(unitName = "project")
-	private EntityManager em;
+    @PersistenceContext(unitName = "project")
+    private EntityManager em;
 
-	// must set the owner here
-	// must persist every individual meal
-	@POST
-	@Path("CreateMenu")
-	public void createMenu(Restaurant restaurant) {
+    // must set the owner here
+    // must persist every individual meal
+    @POST
+    @Path("CreateMenu")
+    public void createMenu(Restaurant restaurant) {
 
-		Set<Meal> meals = restaurant.getMeals();
-		for (Meal meal : meals) {
-			em.persist(meal);
-		}
+        Set<Meal> meals = restaurant.getMeals();
+        for (Meal meal : meals) {
+            em.persist(meal);
+        }
 
-		em.persist(restaurant);
-	}
+        em.persist(restaurant);
+    }
 
-	@PUT
-	@Path("EditMenu")
-	public void editMenu(Restaurant restaurant) {
+    @PUT
+    @Path("EditMenu")
+    public void editMenu(Restaurant restaurant) {
 
-		Set<Meal> meals = restaurant.getMeals();
+        Set<Meal> meals = restaurant.getMeals();
 
-		for (Meal meal : meals) {
-			em.persist(meal);
-		}
+        for (Meal meal : meals) {
+            em.persist(meal);
+        }
 
-		em.persist(restaurant);
+        em.persist(restaurant);
 
-	}
+    }
 
-	@GET
-	@Path("GetRestaurantDetails")
-	// If a Restaurant with the requested primary key is not found in the database,
-	// then the getRestaurantDetails() method returns null.
-	public Optional<Restaurant> getRestaurantDetails(int id) {
-		/*
-		 * Restaurant restaurant = em.find(Restaurant.class, id);
-		 * return restaurant != null ? Optional.of(restaurant) : Optional.empty();
-		 */
-		Restaurant restaurant = em.createQuery("SELECT r FROM Restaurant r WHERE r.id = :id", Restaurant.class)
-				.setParameter("id", id).getSingleResult();
-		return restaurant != null ? Optional.of(restaurant) : Optional.empty();
+    @GET
+    @Path("GetRestaurantDetails")
+    // If a Restaurant with the requested primary key is not found in the database,
+    // then the getRestaurantDetails() method returns null.
+    public Optional<Restaurant> getRestaurantDetails(int id) {
+        /*
+         * Restaurant restaurant = em.find(Restaurant.class, id);
+         * return restaurant != null ? Optional.of(restaurant) : Optional.empty();
+         */
+        Restaurant restaurant = em.createQuery("SELECT r FROM Restaurant r WHERE r.id = :id", Restaurant.class)
+                .setParameter("id", id).getSingleResult();
+        return restaurant != null ? Optional.of(restaurant) : Optional.empty();
 
-	}
+    }
 
-	@GET
-	@Path("CreateRestaurantReport")
-	// If a Restaurant with the requested primary key is not found in the database,
-	// then the getRestaurantDetails() method returns null.
-	public RestaurantReport createRestaurantReport(int id) throws NullPointerException {
+    @GET
+    @Path("CreateRestaurantReport")
+    // If a Restaurant with the requested primary key is not found in the database,
+    // then the getRestaurantDetails() method returns null.
+    public RestaurantReport createRestaurantReport(int id) throws NullPointerException {
 
-		Restaurant restaurant = em.createQuery("Select r FROM Restaurant r WHERE r.id =?1", Restaurant.class)
-				.setParameter("id", id).getSingleResult();
-		if (restaurant == null) {
-			throw new NullPointerException("Restaurant doesn't exist");
-		}
-		return new RestaurantReport(restaurant);
-	}
+        Restaurant restaurant = em.createQuery("Select r FROM Restaurant r WHERE r.id =?1", Restaurant.class)
+                .setParameter("id", id).getSingleResult();
+        if (restaurant == null) {
+            throw new NullPointerException("Restaurant doesn't exist");
+        }
+        return new RestaurantReport(restaurant);
+    }
 
 }

@@ -1,6 +1,6 @@
 package com.project.model;
 
-import com.project.enums.OrderStatus;
+import com.project.enums.OrderStatusEnum;
 
 import java.util.Set;
 
@@ -27,7 +27,7 @@ public class Orders {
     @JoinColumn(name = "restaurantId") // Name of foreign key column in Orders table in database
     private Restaurant restaurant;
 
-    public OrderStatus status;
+    public OrderStatusEnum status;
 
     @ManyToMany(mappedBy = "orders")
     private Set<Meal> meals;
@@ -67,11 +67,11 @@ public class Orders {
         this.restaurant = restaurant;
     }
 
-    public OrderStatus getStatus() {
+    public OrderStatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(OrderStatus status) {
+    public void setStatus(OrderStatusEnum status) {
         this.status = status;
     }
 

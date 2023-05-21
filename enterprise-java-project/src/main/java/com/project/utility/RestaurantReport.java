@@ -2,7 +2,7 @@ package com.project.utility;
 
 import java.util.Set;
 
-import com.project.enums.OrderStatus;
+import com.project.enums.OrderStatusEnum;
 import com.project.model.Orders;
 import com.project.model.Restaurant;
 
@@ -15,10 +15,10 @@ public class RestaurantReport {
     public RestaurantReport(Restaurant restaurant) {
         Set<Orders> orders = restaurant.getOrders();
         for (Orders order : orders) {
-            if (order.status == OrderStatus.DELIVERED) {
+            if (order.status == OrderStatusEnum.DELIVERED) {
                 totalEarinings += order.getTotalPrice();
                 numberOfCompletedOrders++;
-            } else if (order.status == OrderStatus.CANCELED) {
+            } else if (order.status == OrderStatusEnum.CANCELED) {
                 numberOfCancelledOrders++;
             }
         }

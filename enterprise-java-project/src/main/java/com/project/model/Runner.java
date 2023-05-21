@@ -1,6 +1,6 @@
 package com.project.model;
 
-import com.project.enums.RunnerStatus;
+import com.project.enums.RunnerStatusEnum;
 
 import java.util.Set;
 
@@ -11,15 +11,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Runner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
-    private float delivery_fees;
-    public RunnerStatus status;
+    @NotNull
+    private float deliveryFees;
+    @NotNull
+    public RunnerStatusEnum status;
     @OneToOne(optional = false)
     @JoinColumn(name = "userId")
     private User user;
@@ -37,27 +39,11 @@ public class Runner {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public float getDelivery_fees() {
-        return delivery_fees;
-    }
-
-    public void setDelivery_fees(float delivery_fees) {
-        this.delivery_fees = delivery_fees;
-    }
-
-    public RunnerStatus getStatus() {
+    public RunnerStatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(RunnerStatus status) {
+    public void setStatus(RunnerStatusEnum status) {
         this.status = status;
     }
 
@@ -75,5 +61,13 @@ public class Runner {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public float getDeliveryFees() {
+        return deliveryFees;
+    }
+
+    public void setDeliveryFees(float deliveryFees) {
+        this.deliveryFees = deliveryFees;
     }
 }

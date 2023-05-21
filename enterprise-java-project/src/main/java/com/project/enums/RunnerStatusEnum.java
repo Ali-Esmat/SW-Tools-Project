@@ -1,6 +1,6 @@
 package com.project.enums;
 
-public enum RunnerStatus {
+public enum RunnerStatusEnum {
     AVAILABLE,
     BUSY
 }
