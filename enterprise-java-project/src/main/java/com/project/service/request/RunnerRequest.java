@@ -1,10 +1,10 @@
 package com.project.service.request;
 
-import com.project.enums.RoleEnum;
+import com.project.enums.RunnerStatusEnum;
 
 public class RunnerRequest extends UserRequest {
     private double deliveryFees;
-    private RoleEnum status;
+    private RunnerStatusEnum runnerStatus;
 
     public double getDeliveryFees() {
         return deliveryFees;
@@ -14,11 +14,11 @@ public class RunnerRequest extends UserRequest {
         this.deliveryFees = deliveryFees;
     }
     
-    public RoleEnum getRunnerStatus() {
-        return status;
+    public RunnerStatusEnum getRunnerStatus() {
+        return runnerStatus;
     }
 
-    public void setRunnerStatus(RoleEnum status) {
-        this.status = status;
+    public void setRunnerStatus(RunnerStatusEnum runnerStatus) {
+        this.runnerStatus = runnerStatus;
     }
 }
