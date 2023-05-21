@@ -1,9 +1,9 @@
 package com.project.enums;
 
 public enum RoleEnum {
-    RUNNER(Constants.CUSTOMER_VALUE),
+    RUNNER(Constants.RUNNER_VALUE),
     RESTAURANT_OWNER(Constants.RESTAURANT_OWNER_VALUE),
-    CUSTOMER(Constants.RUNNER_VALUE);
+    CUSTOMER(Constants.CUSTOMER_VALUE);
 
     RoleEnum(String roleString) {
     }
