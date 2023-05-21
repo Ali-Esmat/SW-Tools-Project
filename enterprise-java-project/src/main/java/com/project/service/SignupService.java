@@ -24,7 +24,7 @@ public class SignupService {
 
     private void failIfUserWithSameNameExists(String name) {
         if (userRepo.getUserByName(name) != null)
-            throw new BadRequestException("User already exists");
+            throw new BadRequestException(ServiceUtil.createErrorResponse("User already exists"));
     }
 
     @POST

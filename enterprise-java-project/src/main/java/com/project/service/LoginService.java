@@ -26,7 +26,7 @@ public class LoginService {
     public LoginResponse login(LoginRequest request) {
         User user = userRepo.getUserByNameAndPassword(request.getName(), request.getPassword());
         if (user == null) {
-            throw new BadRequestException("Invalid name or password");
+            throw new BadRequestException(ServiceUtil.createErrorResponse("Invalid username or password"));
         }
         return new LoginResponse(user.getId() + ":" + user.getPassword());
     }

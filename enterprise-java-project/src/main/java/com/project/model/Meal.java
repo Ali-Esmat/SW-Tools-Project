@@ -20,7 +20,7 @@ public class Meal {
     private String name;
     private double price;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "restaurantId") // Name of foreign key column in Meal table
     private Restaurant restaurant;
 
