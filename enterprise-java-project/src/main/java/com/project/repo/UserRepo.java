@@ -46,13 +46,21 @@ public class UserRepo {
     }
 
     public User getUserByNameAndPassword(String name, String password) {
-        TypedQuery<User> query = em.createQuery("select u from User u where u.name = :name and u.password = :password",
-                User.class);
-        query.setParameter("name", name);
-        query.setParameter("password", password);
-        if (query.getResultList().isEmpty()) {
-            return null;
-        }
-        return query.getSingleResult();
+        return RepoUtil.getFirstResultOrNull(() -> {
+            TypedQuery<User> query = em.createQuery(
+                    "select u from User u where u.name = :name and u.password = :password",
+                    User.class);
+            query.setParameter("name", name);
+            query.setParameter("password", password);
+            return query;
+        });
+    }
+
+    public User getUserByName(String name) {
+        return RepoUtil.getFirstResultOrNull(() -> {
+            TypedQuery<User> query = em.createQuery("select u from User u where u.name = :name", User.class);
+            query.setParameter("name", name);
+            return query;
+        });
     }
 }
