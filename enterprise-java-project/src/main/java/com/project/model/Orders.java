@@ -18,81 +18,68 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private float totalPrice;
-    
+
     @ManyToOne
-    @JoinColumn(name = "runner_id") // Name of foreign key column in Orders table in database
+    @JoinColumn(name = "runnerId") // Name of foreign key column in Orders table in database
     private Runner runner;
-    
+
     @ManyToOne
-    @JoinColumn(name = "restaurant_id") // Name of foreign key column in Orders table in database
+    @JoinColumn(name = "restaurantId") // Name of foreign key column in Orders table in database
     private Restaurant restaurant;
-    
+
     public OrderStatus status;
 
     @ManyToMany(mappedBy = "orders")
     private Set<Meal> meals;
 
-
-    public Orders(){}
-
+    public Orders() {
+    }
 
     public int getId() {
         return id;
     }
 
-
     public void setId(int id) {
         this.id = id;
     }
-
 
     public float getTotalPrice() {
         return totalPrice;
     }
 
-
     public void setTotalPrice(float totalPrice) {
         this.totalPrice = totalPrice;
     }
-
 
     public Runner getRunner() {
         return runner;
     }
 
-
     public void setRunner(Runner runner) {
         this.runner = runner;
     }
-
 
     public Restaurant getRestaurant() {
         return restaurant;
     }
 
-
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
-
 
     public OrderStatus getStatus() {
         return status;
     }
 
-
     public void setStatus(OrderStatus status) {
         this.status = status;
     }
-
 
     public Set<Meal> getMeals() {
         return meals;
     }
 
-
     public void setMeals(Set<Meal> meals) {
         this.meals = meals;
     }
-    
 }

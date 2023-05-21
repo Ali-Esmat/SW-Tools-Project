@@ -1,4 +1,5 @@
 package com.project.model;
+
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -15,23 +16,25 @@ public class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
+
     private String name;
     private float price;
-    
+
     @ManyToOne
-    @JoinColumn(name = "restaurant_id") // Name of foreign key column in Meal table
+    @JoinColumn(name = "restaurantId") // Name of foreign key column in Meal table
     private Restaurant restaurant;
 
     @ManyToMany
-    @JoinTable(
-        name = "MealXOrders",
-        joinColumns = @JoinColumn(name = "meal_id"), // Name of foreign key column to Meal table in MealXOrders table in database
-        inverseJoinColumns = @JoinColumn(name = "order_id") // Name of foreign key column to Order table in MealXOrders table in database
+    @JoinTable(name = "MealXOrders", joinColumns = @JoinColumn(name = "mealId"), // Name of foreign key column to Meal
+                                                                                 // table in MealXOrders table in
+                                                                                 // database
+            inverseJoinColumns = @JoinColumn(name = "orderId") // Name of foreign key column to Order table in
+                                                               // MealXOrders table in database
     )
     private Set<Orders> orders;
-    
-    public Meal(){}
+
+    public Meal() {
+    }
 
     public int getId() {
         return id;
@@ -72,7 +75,4 @@ public class Meal {
     public void setOrders(Set<Orders> orders) {
         this.orders = orders;
     }
-
-    
-
 }

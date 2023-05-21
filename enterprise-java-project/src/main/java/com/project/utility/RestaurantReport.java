@@ -12,17 +12,16 @@ public class RestaurantReport {
     public int numberOfCompletedOrders;
     public int numberOfCancelledOrders;
 
-    public RestaurantReport(Restaurant restaurant){
+    public RestaurantReport(Restaurant restaurant) {
         Set<Orders> orders = restaurant.getOrders();
-        for(Orders order:orders){
-            if (order.status == OrderStatus.DELIVERED){
+        for (Orders order : orders) {
+            if (order.status == OrderStatus.DELIVERED) {
                 totalEarinings += order.getTotalPrice();
                 numberOfCompletedOrders++;
-            }
-            else if (order.status == OrderStatus.CANCELED){
+            } else if (order.status == OrderStatus.CANCELED) {
                 numberOfCancelledOrders++;
             }
         }
     }
-    
+
 }

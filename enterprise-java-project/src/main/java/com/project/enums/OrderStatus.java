@@ -1,7 +1,7 @@
 package com.project.enums;
 
 public enum OrderStatus {
-    PREPARING, 
-    DELIVERED, 
+    PREPARING,
+    DELIVERED,
     CANCELED
 }

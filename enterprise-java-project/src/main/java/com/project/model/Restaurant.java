@@ -1,4 +1,5 @@
 package com.project.model;
+
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -17,17 +18,18 @@ public class Restaurant {
 
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "owner_id") // Name of foreign key column in Restaurant table in database
-    private User owner;
-    
+    @OneToOne(optional = false)
+    @JoinColumn(name = "ownerId")
+    private RestaurantOwner owner;
+
     @OneToMany(mappedBy = "restaurant")
     private Set<Meal> meals;
-    
+
     @OneToMany(mappedBy = "restaurant")
     private Set<Orders> orders;
 
-    public Restaurant(){}
+    public Restaurant() {
+    }
 
     public int getId() {
         return id;
@@ -43,14 +45,6 @@ public class Restaurant {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
     }
 
     public Set<Meal> getMeals() {
@@ -69,5 +63,11 @@ public class Restaurant {
         this.orders = orders;
     }
 
-    
+    public RestaurantOwner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(RestaurantOwner owner) {
+        this.owner = owner;
+    }
 }

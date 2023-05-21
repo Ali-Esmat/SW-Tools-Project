@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Runner {
@@ -18,10 +20,14 @@ public class Runner {
     private String name;
     private float delivery_fees;
     public RunnerStatus status;
+    @OneToOne(optional = false)
+    @JoinColumn(name = "userId")
+    private User user;
     @OneToMany(mappedBy = "runner")
     private Set<Orders> order;
 
-    public Runner(){}
+    public Runner() {
+    }
 
     public int getId() {
         return id;
@@ -63,5 +69,11 @@ public class Runner {
         this.order = order;
     }
 
-    
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
