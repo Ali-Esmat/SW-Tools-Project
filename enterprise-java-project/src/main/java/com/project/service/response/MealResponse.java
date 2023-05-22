@@ -3,10 +3,12 @@ package com.project.service.response;
 import com.project.model.Meal;
 
 public class MealResponse {
+    private int id;
     private String name;
     private double price;
 
     public MealResponse(Meal meal) {
+        this.id = meal.getId();
         this.name = meal.getName();
         this.price = meal.getPrice();
     }
@@ -25,5 +27,13 @@ public class MealResponse {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

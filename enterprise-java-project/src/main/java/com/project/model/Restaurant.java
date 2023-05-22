@@ -3,6 +3,7 @@ package com.project.model;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +23,7 @@ public class Restaurant {
     @JoinColumn(name = "ownerId")
     private RestaurantOwner owner;
 
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER)
     private Set<Meal> meals;
 
     @OneToMany(mappedBy = "restaurant")

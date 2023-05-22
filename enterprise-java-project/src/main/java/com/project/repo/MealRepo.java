@@ -13,14 +13,14 @@ public class MealRepo {
     @PersistenceContext(unitName = "project")
     private EntityManager em;
 
-    public void editMeal(Meal meal, String name, double price) {
+    private void setMealDetails(Meal meal, String name, double price) {
         meal.setName(name);
         meal.setPrice(price);
     }
 
     public Meal createMealForRestaurant(Restaurant restaurant, String name, double price) {
         Meal meal = new Meal();
-        editMeal(meal, name, price);
+        setMealDetails(meal, name, price);
         meal.setRestaurant(restaurant);
         em.persist(meal);
         return meal;
@@ -34,6 +34,11 @@ public class MealRepo {
 
     public void deleteMeal(Meal meal) {
         em.remove(meal);
+    }
+
+    public void editMeal(Meal meal, String name, double price) {
+        setMealDetails(meal, name, price);
+        em.merge(meal);
     }
 
 }
