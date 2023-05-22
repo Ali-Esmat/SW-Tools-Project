@@ -6,7 +6,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import com.project.enums.RunnerStatusEnum;
+import com.project.enums.OrderStatusEnum;
 import com.project.model.Runner;
+import com.project.model.Orders;
 
 @Stateless
 public class RunnerRepo {
@@ -24,6 +26,17 @@ public class RunnerRepo {
         TypedQuery<Runner> runnerQuery = em.createQuery("Select r from Runner where r.id = ?1",Runner.class);
         runnerQuery.setParameter(1, runnerId);
         return RepoUtil.getFirstResultOrNull(runnerQuery);
+    }
+    
+    public int getCompletedTrips(int runnerId) {
+        Runner runner = getRunnerById(runnerId);
+        Set<Orders> orders = runner.getOrders();
+        int totalNumberOfCompletedTrips = 0;
+        for(Orders order : orders) {
+        	if(order.getStatus() == OrderStatusEnum.DELIVERED)
+        		totalNumberOfCompletedTrips++;
+        }
+        return totalNumberOfCompletedTrips;
     }
 
     public Runner setRunnerStatus(int runnerId, RunnerStatusEnum status) {
