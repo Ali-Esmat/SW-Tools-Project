@@ -38,6 +38,6 @@ public class RestaurantRepo {
     }
 
     public List<Restaurant> getAllRestaurants() {
-        return em.createQuery("select r from Restaurant r", Restaurant.class).getResultList();
+        return em.createQuery("select r from Restaurant r join fetch r.meals", Restaurant.class).getResultList();
     }
 }
