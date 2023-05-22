@@ -26,7 +26,7 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER)
     private Set<Meal> menu;
 
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER)
     private Set<Orders> orders;
 
     public Restaurant() {

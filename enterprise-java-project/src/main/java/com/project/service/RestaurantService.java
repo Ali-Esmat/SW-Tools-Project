@@ -1,10 +1,12 @@
 package com.project.service;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -14,10 +16,13 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 
+import com.project.enums.OrderStatusEnum;
 import com.project.enums.RoleEnum;
+import com.project.model.Orders;
 import com.project.model.Restaurant;
 import com.project.repo.RestaurantRepo;
 import com.project.service.request.RestaurantRequest;
+import com.project.service.response.RestaurantReportResponse;
 import com.project.service.response.RestaurantResponse;
 import com.project.service.util.ServiceUtil;
 
@@ -36,6 +41,14 @@ public class RestaurantService {
         return new RestaurantResponse(r);
     }
 
+    private Restaurant restaurantOrFailIfNone(SecurityContext context) {
+        Restaurant r = repo.getRestaurantForRestaurantOwner(ServiceUtil.getIdFromContext(context));
+        if (r == null) {
+            throw new BadRequestException(ServiceUtil.createErrorResponse("You don't have a restaurant yet"));
+        }
+        return r;
+    }
+
     /*
      * The owner only has one restaurant, no need to specify the restaurant id as
      * mentioned in the specs
@@ -43,8 +56,32 @@ public class RestaurantService {
      */
     @GET
     public RestaurantResponse getRestaurantForRestaurantOwner(@Context SecurityContext context) {
-        Restaurant r = repo.getRestaurantForRestaurantOwner(ServiceUtil.getIdFromContext(context));
-        return new RestaurantResponse(r);
+        return new RestaurantResponse(restaurantOrFailIfNone(context));
+    }
+
+    public double calculateOrderPrice(Orders order) {
+        return 3.0; // TODO: change
+    }
+
+    @GET
+    @Path("report")
+    public RestaurantReportResponse getRestaurantReportForRestaurantOwner(@Context SecurityContext context) {
+        Restaurant restaurant = restaurantOrFailIfNone(context);
+        Set<Orders> orders = restaurant.getOrders();
+        double gains = 0;
+        int noCancelled = 0;
+        int noCompleted = 0;
+        if (orders != null) {
+            for (Orders order : orders) {
+                if (order.status == OrderStatusEnum.DELIVERED) {
+                    gains += calculateOrderPrice(order);
+                    ++noCompleted;
+                } else if (order.status == OrderStatusEnum.CANCELED) {
+                    ++noCancelled;
+                }
+            }
+        }
+        return new RestaurantReportResponse(restaurant.getId(), gains, noCompleted, noCancelled);
     }
 
     @RolesAllowed(RoleEnum.Constants.CUSTOMER_VALUE)
