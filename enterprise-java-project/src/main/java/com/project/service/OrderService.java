@@ -139,7 +139,7 @@ public class OrderService {
 
     public void setOrderStatus(int runnerUserId, int orderId, OrderStatusEnum status) {
         Orders order = orderRepo.getOrderById(orderId);
-        if (order == null || order.getStatus() == OrderStatusEnum.CANCELED
+        if (order == null || order.getStatus() != OrderStatusEnum.PREPARING
                 || order.getRunner().getUser().getId() != runnerUserId)
             throw new BadRequestException(ServiceUtil.createErrorResponse("Can't find the specified order"));
         orderRepo.setOrderStatus(orderId, status);

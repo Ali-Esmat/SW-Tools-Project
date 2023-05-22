@@ -48,6 +48,7 @@ public class OrderRepo {
             meals.add(meal);
         }
         Orders order = getOrderById(orderId);
+        order.getMeals().forEach((m) -> m.getOrders().remove(order));
         order.setMeals(meals);
         order.getMeals().forEach((m) -> m.getOrders().add(order));
         return order;
