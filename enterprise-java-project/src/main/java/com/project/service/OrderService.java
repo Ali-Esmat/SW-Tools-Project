@@ -68,7 +68,7 @@ public class OrderService {
         Runner runner = runnerRepo.getFirstFreeRunner();
         if (runner == null)
             throw new BadRequestException(ServiceUtil.createErrorResponse("No runner is currently avaliable"));
-        runner.setStatus(RunnerStatusEnum.BUSY);
+        runnerRepo.setRunnerStatus(runner.getId(),RunnerStatusEnum.BUSY);
 
         ArrayList<Integer> mealIds = request.getMealIds();
         Set<Meal> meals = new HashSet<Meal>();
@@ -79,7 +79,7 @@ public class OrderService {
             tmpMeal = mealRepo.getMealById(mealIds.get(i));
             if (tmpMeal.getRestaurant().getId() != request.getRestaurantId())
                 throw new BadRequestException(ServiceUtil.createErrorResponse(
-                        "This restaurant does not provid meal with id " + tmpMeal.getRestaurant().getId()));
+                        "This restaurant does not provide meal with id " + tmpMeal.getRestaurant().getId()));
             meals.add(tmpMeal);
         }
         // retrieve Restaurant instance from one of the meals retrieved by the query

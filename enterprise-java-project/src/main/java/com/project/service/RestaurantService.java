@@ -35,6 +35,9 @@ public class RestaurantService {
     @Inject
     private RestaurantRepo repo;
 
+    @Inject
+    private OrderService orderService;
+
     @POST
     public RestaurantResponse createRestaurant(@Context SecurityContext context, RestaurantRequest request) {
         Restaurant r = repo.createRestaurant(ServiceUtil.getIdFromContext(context), request.getName());
@@ -59,9 +62,6 @@ public class RestaurantService {
         return new RestaurantResponse(restaurantOrFailIfNone(context));
     }
 
-    public double calculateOrderPrice(Orders order) {
-        return 3.0; // TODO: change
-    }
 
     @GET
     @Path("report")
@@ -74,7 +74,7 @@ public class RestaurantService {
         if (orders != null) {
             for (Orders order : orders) {
                 if (order.status == OrderStatusEnum.DELIVERED) {
-                    gains += calculateOrderPrice(order);
+                    gains += orderService.calculateOrderPrice(order);
                     ++noCompleted;
                 } else if (order.status == OrderStatusEnum.CANCELED) {
                     ++noCancelled;
