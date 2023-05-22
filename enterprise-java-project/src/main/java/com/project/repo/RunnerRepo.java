@@ -1,13 +1,17 @@
 package com.project.repo;
 
+import java.util.Set;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import com.project.enums.RunnerStatusEnum;
+import com.project.enums.OrderStatusEnum;
 import com.project.model.Runner;
 import com.project.model.User;
+import com.project.model.Orders;
 
 @Stateless
 public class RunnerRepo {
@@ -28,6 +32,17 @@ public class RunnerRepo {
         if (user == null)
             return null;
         return user.getRunner();
+    }
+
+    public int getCompletedTrips(int runnerId) {
+        Runner runner = getRunnerById(runnerId);
+        Set<Orders> orders = runner.getOrders();
+        int totalNumberOfCompletedTrips = 0;
+        for(Orders order : orders) {
+        	if(order.getStatus() == OrderStatusEnum.DELIVERED)
+        		totalNumberOfCompletedTrips++;
+        }
+        return totalNumberOfCompletedTrips;
     }
 
     public Runner setRunnerStatus(int runnerId, RunnerStatusEnum status) {
