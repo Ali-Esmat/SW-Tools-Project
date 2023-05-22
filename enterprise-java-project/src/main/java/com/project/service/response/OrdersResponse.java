@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Set;
 
 import com.project.model.Meal;
+import com.project.model.Orders;
 
 public class OrdersResponse {
     private Date date;
@@ -12,6 +13,15 @@ public class OrdersResponse {
     private float deliveryFees;
     private String runnerName;
     private float totalReciptValue;
+
+    public OrdersResponse(Orders order, float totalPrice) {
+        this.date = order.getDate();
+        this.restaurantName = order.getRestaurant().getName();
+        this.meals = order.getMeals();
+        this.deliveryFees = order.getRunner().getDeliveryFees();
+        this.runnerName = order.getRunner().getUser().getName();
+        this.totalReciptValue = totalPrice;
+    }
 
     public Date getDate() {
         return date;
@@ -60,4 +70,5 @@ public class OrdersResponse {
     public void setTotalReciptValue(float totalReciptValue) {
         this.totalReciptValue = totalReciptValue;
     }
+
 }

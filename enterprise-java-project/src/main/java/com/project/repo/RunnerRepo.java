@@ -14,9 +14,21 @@ public class RunnerRepo {
     private EntityManager em;
 
     public Runner getFirstFreeRunner() {
-        TypedQuery<Runner> runnerQuery = em.createQuery("SELECT r FROM Runner r WHERE r.status = :status",
+        TypedQuery<Runner> runnerQuery = em.createQuery("Select r from Runner r where r.status = :status",
                 Runner.class);
         runnerQuery.setParameter("status", RunnerStatusEnum.AVAILABLE);
         return RepoUtil.getFirstResultOrNull(runnerQuery);
+    }
+
+    public Runner getRunnerById(int runnerId){
+        TypedQuery<Runner> runnerQuery = em.createQuery("Select r from Runner where r.id = ?1",Runner.class);
+        runnerQuery.setParameter(1, runnerId);
+        return RepoUtil.getFirstResultOrNull(runnerQuery);
+    }
+
+    public Runner setRunnerStatus(int runnerId, RunnerStatusEnum status) {
+        Runner runner = getRunnerById(runnerId);
+        runner.setStatus(status);
+        return runner;
     }
 }

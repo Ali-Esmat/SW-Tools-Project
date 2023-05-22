@@ -26,7 +26,7 @@ public class Runner {
     @JoinColumn(name = "userId")
     private User user;
     @OneToMany(mappedBy = "runner")
-    private Set<Orders> order;
+    private Set<Orders> orders;
 
     public Runner() {
     }
@@ -47,12 +47,12 @@ public class Runner {
         this.status = status;
     }
 
-    public Set<Orders> getOrder() {
-        return order;
+    public Set<Orders> getOrders() {
+        return orders;
     }
 
-    public void setOrder(Set<Orders> order) {
-        this.order = order;
+    public void setOrders(Set<Orders> orders) {
+        this.orders = orders;
     }
 
     public User getUser() {

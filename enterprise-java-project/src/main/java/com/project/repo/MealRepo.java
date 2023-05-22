@@ -6,6 +6,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import com.project.model.Meal;
+import com.project.model.Orders;
 import com.project.model.Restaurant;
 
 @Stateless
