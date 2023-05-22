@@ -1,6 +1,6 @@
 package com.project.repo;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -34,15 +34,12 @@ public class RunnerRepo {
         return user.getRunner();
     }
 
-    public int getCompletedTrips(int runnerId) {
-        Runner runner = getRunnerById(runnerId);
-        Set<Orders> orders = runner.getOrders();
-        int totalNumberOfCompletedTrips = 0;
-        for(Orders order : orders) {
-        	if(order.getStatus() == OrderStatusEnum.DELIVERED)
-        		totalNumberOfCompletedTrips++;
-        }
-        return totalNumberOfCompletedTrips;
+    public List<Orders> getDeliveredOrders(int userId) {
+        TypedQuery<Orders> query = em.createQuery(
+                "select o from Orders o where o.runner.user.id = :id and o.status = :status", Orders.class);
+        query.setParameter("id", userId);
+        query.setParameter("status", OrderStatusEnum.DELIVERED);
+        return query.getResultList();
     }
 
     public Runner setRunnerStatus(int runnerId, RunnerStatusEnum status) {

@@ -27,9 +27,6 @@ public class OrderRepo {
     CustomerRepo customerRepo;
 
     @Inject
-    RunnerRepo runnerRepo;
-
-    @Inject
     MealRepo mealRepo;
 
     public Orders createOrder(Runner runner, OrderStatusEnum status, Restaurant restaurant,
@@ -72,10 +69,5 @@ public class OrderRepo {
     public Set<Orders> getCustomerOrders(int customerId) {
         Customer customer = customerRepo.getCustomerById(customerId);
         return customer.getOrders();
-    }
-
-    public Set<Orders> getRunnerOrders(int runnerId) {
-        Runner runner = runnerRepo.getRunnerById(runnerId);
-        return runner.getOrders();
     }
 }
