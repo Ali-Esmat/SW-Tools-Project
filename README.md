@@ -5,6 +5,10 @@
 - Mootaz Medhat Ezzat AbdelWahab - 20206074
 - Ali Esmat Ahmed Orfy - 20206123
 
+# GitHub Repository
+
+https://github.com/Ali-Esmat/SW-Tools-Project
+
 # Setup instructions
 
 From a Linux environment run the `create-sd.sh` script in `enterprise-java-project`:
@@ -20,6 +24,7 @@ Alternatively, set the properties in the script manually in the JBoss web consol
 # Build instructions
 
 Ensure a JBOSS EAP 7.1 server is running and from `enterprise-java-project` deploy using the maven wildfly plugin.
+
 ```bash
 cd enterprise-java-project/
 mvn clean wildfly:deploy
