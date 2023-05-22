@@ -7,6 +7,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -23,7 +24,7 @@ import com.project.service.util.ServiceUtil;
 
 
 @RequestScoped
-@Path("runner")
+@Path("runner/")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class RunnerService {
@@ -34,8 +35,9 @@ public class RunnerService {
     private OrderRepo orderRepo;
 	
 	@PUT
+	@Path("{id}/deliver")
 	@RolesAllowed(RoleEnum.Constants.RUNNER_VALUE)
-	public String changeOrderStatusToDelivered(int orderId) {
+	public String changeOrderStatusToDelivered(@PathParam("id") int orderId) {
 		Orders order = orderRepo.setOrderStatus(orderId, OrderStatusEnum.DELIVERED);
         return "The order with id " + order.getId() + " is " + order.getStatus();
     }
