@@ -20,6 +20,7 @@ public class RoleRepo {
             return null;
         return query.getSingleResult();
     }
+
     // Creates a new role in the database
     public Role createRole(String name) {
         Role role = new Role();

@@ -7,6 +7,7 @@ import javax.persistence.TypedQuery;
 
 import com.project.enums.RunnerStatusEnum;
 import com.project.model.Runner;
+import com.project.model.User;
 
 @Stateless
 public class RunnerRepo {
@@ -20,10 +21,13 @@ public class RunnerRepo {
         return RepoUtil.getFirstResultOrNull(runnerQuery);
     }
 
-    public Runner getRunnerById(int runnerId){
-        TypedQuery<Runner> runnerQuery = em.createQuery("Select r from Runner where r.id = ?1",Runner.class);
-        runnerQuery.setParameter(1, runnerId);
-        return RepoUtil.getFirstResultOrNull(runnerQuery);
+    public Runner getRunnerById(int userId) {
+        TypedQuery<User> userQuery = em.createQuery("select u from User u where u.id = :id", User.class);
+        userQuery.setParameter("id", userId);
+        User user = RepoUtil.getFirstResultOrNull(userQuery);
+        if (user == null)
+            return null;
+        return user.getRunner();
     }
 
     public Runner setRunnerStatus(int runnerId, RunnerStatusEnum status) {

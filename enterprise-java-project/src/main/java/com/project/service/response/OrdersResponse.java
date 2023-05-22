@@ -1,26 +1,27 @@
 package com.project.service.response;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
-import com.project.model.Meal;
+import com.project.enums.OrderStatusEnum;
 import com.project.model.Orders;
+import com.project.service.util.ServiceUtil;
 
 public class OrdersResponse {
     private Date date;
     private String restaurantName;
-    private Set<Meal> meals;
+    private List<MealResponse> meals;
     private float deliveryFees;
     private String runnerName;
-    private float totalReciptValue;
+    private OrderStatusEnum status;
 
-    public OrdersResponse(Orders order, float totalPrice) {
+    public OrdersResponse(Orders order) {
         this.date = order.getDate();
         this.restaurantName = order.getRestaurant().getName();
-        this.meals = order.getMeals();
+        this.meals = ServiceUtil.entitiesToResponses(order.getMeals(), (m) -> new MealResponse(m));
         this.deliveryFees = order.getRunner().getDeliveryFees();
         this.runnerName = order.getRunner().getUser().getName();
-        this.totalReciptValue = totalPrice;
+        this.status = order.getStatus();
     }
 
     public Date getDate() {
@@ -39,14 +40,6 @@ public class OrdersResponse {
         this.restaurantName = restaurantName;
     }
 
-    public Set<Meal> getMeals() {
-        return meals;
-    }
-
-    public void setMeals(Set<Meal> meals) {
-        this.meals = meals;
-    }
-
     public float getDeliveryFees() {
         return deliveryFees;
     }
@@ -63,12 +56,19 @@ public class OrdersResponse {
         this.runnerName = runnerName;
     }
 
-    public float getTotalReciptValue() {
-        return totalReciptValue;
+    public List<MealResponse> getMeals() {
+        return meals;
     }
 
-    public void setTotalReciptValue(float totalReciptValue) {
-        this.totalReciptValue = totalReciptValue;
+    public void setMeals(List<MealResponse> meals) {
+        this.meals = meals;
     }
 
+    public OrderStatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatusEnum status) {
+        this.status = status;
+    }
 }

@@ -40,6 +40,10 @@ public class RestaurantService {
 
     @POST
     public RestaurantResponse createRestaurant(@Context SecurityContext context, RestaurantRequest request) {
+        Restaurant existing = repo.getRestaurantForRestaurantOwner(ServiceUtil.getIdFromContext(context));
+        if (existing != null) {
+            throw new BadRequestException(ServiceUtil.createErrorResponse("You already have a restaurant"));
+        }
         Restaurant r = repo.createRestaurant(ServiceUtil.getIdFromContext(context), request.getName());
         return new RestaurantResponse(r);
     }
@@ -61,7 +65,6 @@ public class RestaurantService {
     public RestaurantResponse getRestaurantForRestaurantOwner(@Context SecurityContext context) {
         return new RestaurantResponse(restaurantOrFailIfNone(context));
     }
-
 
     @GET
     @Path("report")

@@ -41,8 +41,9 @@ public class RestaurantRepo {
         return em.createQuery("select r from Restaurant r", Restaurant.class).getResultList();
     }
 
-    public Restaurant getRestaurantById(int restaurantId){
-        TypedQuery<Restaurant> restaurantQuery = em.createQuery("select r from Restaurant r where u.id = :id", Restaurant.class);
+    public Restaurant getRestaurantById(int restaurantId) {
+        TypedQuery<Restaurant> restaurantQuery = em.createQuery("select r from Restaurant r where r.id = :id",
+                Restaurant.class);
         restaurantQuery.setParameter("id", restaurantId);
         return RepoUtil.getFirstResultOrNull(restaurantQuery);
     }

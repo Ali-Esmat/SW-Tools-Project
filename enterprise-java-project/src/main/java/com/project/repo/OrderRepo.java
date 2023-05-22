@@ -1,8 +1,8 @@
 package com.project.repo;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.ejb.Stateless;
@@ -32,21 +32,19 @@ public class OrderRepo {
     @Inject
     MealRepo mealRepo;
 
-    public Orders createOrder(Runner runner, OrderStatusEnum status, Set<Meal> meals, Restaurant restaurant,
+    public Orders createOrder(Runner runner, OrderStatusEnum status, Restaurant restaurant,
             Customer customer) {
         Orders order = new Orders();
         order.setRunner(runner);
         order.setStatus(status);
         order.setDate(new Date());
-        order.setMeals(meals);
         order.setRestaurant(restaurant);
         order.setCustomer(customer);
         em.persist(order);
         return order;
     }
 
-    public Orders editOrder(int orderId, ArrayList<Integer> mealIds) {
-
+    public Orders editOrderMeals(int orderId, List<Integer> mealIds) {
         Set<Meal> meals = new HashSet<Meal>();
         for (int mealId : mealIds) {
             Meal meal = mealRepo.getMealById(mealId);
@@ -54,6 +52,7 @@ public class OrderRepo {
         }
         Orders order = getOrderById(orderId);
         order.setMeals(meals);
+        order.getMeals().forEach((m) -> m.getOrders().add(order));
         return order;
     }
 
@@ -64,15 +63,11 @@ public class OrderRepo {
     }
 
     public Orders getOrderById(int orderId) {
-        TypedQuery<Orders> orderQuery = em.createQuery("select o from Order o where o.id = :id", Orders.class);
+        TypedQuery<Orders> orderQuery = em.createQuery("select o from Orders o where o.id = :id", Orders.class);
         orderQuery.setParameter("id", orderId);
         return orderQuery.getSingleResult();
 
     }
-
-    // Can these functions become more generic ?
-    // will this return type cause an error for the JSON body ?
-    // TODO: test the api related to this query
 
     public Set<Orders> getCustomerOrders(int customerId) {
         Customer customer = customerRepo.getCustomerById(customerId);

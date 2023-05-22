@@ -13,10 +13,9 @@ public class CustomerRepo {
     @PersistenceContext(unitName = "project")
     private EntityManager em;
 
-    public Customer getCustomerById(int id){
-
-        TypedQuery<User> customerQuery = em.createQuery("Select m from User m where m.id = ?1 ",User.class);
-        customerQuery.setParameter(1, id);
+    public Customer getCustomerById(int userId) {
+        TypedQuery<User> customerQuery = em.createQuery("Select m from User m where m.id = ?1 ", User.class);
+        customerQuery.setParameter(1, userId);
         User user = customerQuery.getSingleResult();
         return user.getCustomer();
 
