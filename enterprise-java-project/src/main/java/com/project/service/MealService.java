@@ -59,14 +59,14 @@ public class MealService {
     @Path("{id}")
     public MealResponse editMeal(@Context SecurityContext context, @PathParam("id") int id, MealRequest request) {
         Meal meal = mealOrFailIfDoesNotOwnMeal(context, id);
-        mealRepo.editMeal(meal, request.getName(), request.getPrice());
+        mealRepo.editMealById(id, request.getName(), request.getPrice());
         return new MealResponse(meal);
     }
 
     @DELETE
     @Path("{id}")
     public void removeMeal(@Context SecurityContext context, @PathParam("id") int id) {
-        Meal meal = mealOrFailIfDoesNotOwnMeal(context, id);
-        mealRepo.deleteMeal(meal);
+        mealOrFailIfDoesNotOwnMeal(context, id);
+        mealRepo.deleteMealById(id);
     }
 }

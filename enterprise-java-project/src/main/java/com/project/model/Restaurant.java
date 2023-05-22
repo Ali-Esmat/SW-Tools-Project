@@ -24,7 +24,7 @@ public class Restaurant {
     private RestaurantOwner owner;
 
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER)
-    private Set<Meal> meals;
+    private Set<Meal> menu;
 
     @OneToMany(mappedBy = "restaurant")
     private Set<Orders> orders;
@@ -48,14 +48,6 @@ public class Restaurant {
         this.name = name;
     }
 
-    public Set<Meal> getMeals() {
-        return meals;
-    }
-
-    public void setMeals(Set<Meal> meals) {
-        this.meals = meals;
-    }
-
     public Set<Orders> getOrders() {
         return orders;
     }
@@ -70,5 +62,13 @@ public class Restaurant {
 
     public void setOwner(RestaurantOwner owner) {
         this.owner = owner;
+    }
+
+    public Set<Meal> getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Set<Meal> menu) {
+        this.menu = menu;
     }
 }

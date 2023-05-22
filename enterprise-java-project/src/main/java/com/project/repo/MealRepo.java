@@ -32,13 +32,15 @@ public class MealRepo {
         return RepoUtil.getFirstResultOrNull(query);
     }
 
-    public void deleteMeal(Meal meal) {
+    public void deleteMealById(int id) {
+        Meal meal = getMealById(id);
         em.remove(meal);
     }
 
-    public void editMeal(Meal meal, String name, double price) {
+    public Meal editMealById(int id, String name, double price) {
+        Meal meal = getMealById(id);
         setMealDetails(meal, name, price);
-        em.merge(meal);
+        return meal;
     }
 
 }

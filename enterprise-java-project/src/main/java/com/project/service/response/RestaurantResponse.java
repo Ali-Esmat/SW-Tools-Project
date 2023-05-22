@@ -11,14 +11,14 @@ public class RestaurantResponse {
     private int id;
     private String name;
     private RestaurantOwnerResponse owner;
-    private List<MealResponse> meals;
+    private List<MealResponse> menu;
 
     public RestaurantResponse(Restaurant restaurant) {
         this.id = restaurant.getId();
         this.name = restaurant.getName();
         this.owner = new RestaurantOwnerResponse(restaurant.getOwner().getUser().getName());
-        Set<Meal> meals = restaurant.getMeals();
-        this.meals = ServiceUtil.entitiesToResponses(meals, (m) -> new MealResponse(m));
+        Set<Meal> meals = restaurant.getMenu();
+        this.menu = ServiceUtil.entitiesToResponses(meals, (m) -> new MealResponse(m));
     }
 
     public int getId() {
@@ -45,11 +45,11 @@ public class RestaurantResponse {
         this.owner = owner;
     }
 
-    public List<MealResponse> getMeals() {
-        return meals;
+    public List<MealResponse> getMenu() {
+        return menu;
     }
 
-    public void setMeals(List<MealResponse> meals) {
-        this.meals = meals;
+    public void setMenu(List<MealResponse> meals) {
+        this.menu = meals;
     }
 }
