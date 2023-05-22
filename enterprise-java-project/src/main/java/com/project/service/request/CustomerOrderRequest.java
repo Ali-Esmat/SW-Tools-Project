@@ -9,20 +9,16 @@ public class CustomerOrderRequest {
     public int getRestaurantId() {
         return restaurantId;
     }
+
     public void setRestaurantId(int restaurantId) {
         this.restaurantId = restaurantId;
     }
+
     public ArrayList<Integer> getMealIds() {
         return mealIds;
     }
+
     public void setMealIds(ArrayList<Integer> mealIds) {
         this.mealIds = mealIds;
     }
-    
-    
-    
-
-    
-
-    
 }

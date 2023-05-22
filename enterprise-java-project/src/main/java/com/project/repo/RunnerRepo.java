@@ -12,11 +12,11 @@ import com.project.model.Runner;
 public class RunnerRepo {
     @PersistenceContext(unitName = "project")
     private EntityManager em;
-    
-    public Runner getFirstFreeRunner(){
 
-        TypedQuery<Runner> runnerQuery = em.createQuery("SELECT r FROM Runner r WHERE r.status = :status", Runner.class);
-        runnerQuery.setParameter("status", RunnerStatusEnum.AVAILABLE );
+    public Runner getFirstFreeRunner() {
+        TypedQuery<Runner> runnerQuery = em.createQuery("SELECT r FROM Runner r WHERE r.status = :status",
+                Runner.class);
+        runnerQuery.setParameter("status", RunnerStatusEnum.AVAILABLE);
         return RepoUtil.getFirstResultOrNull(runnerQuery);
     }
 }

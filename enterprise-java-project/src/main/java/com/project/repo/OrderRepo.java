@@ -19,7 +19,8 @@ public class OrderRepo {
     @PersistenceContext(unitName = "project")
     private EntityManager em;
 
-    public Orders createOrder(Runner runner, OrderStatusEnum status, Set<Meal> meals, Restaurant restaurant, Customer customer){
+    public Orders createOrder(Runner runner, OrderStatusEnum status, Set<Meal> meals, Restaurant restaurant,
+            Customer customer) {
         Orders order = new Orders();
         order.setRunner(runner);
         order.setStatus(status);
@@ -30,7 +31,8 @@ public class OrderRepo {
         em.persist(order);
         return order;
     }
-    public void  EditOrder (Orders order){}
 
-    
+    public void EditOrder(Orders order) {
+    }
+
 }

@@ -13,7 +13,7 @@ public class RunnerRequest extends UserRequest {
     public void setDeliveryFees(float deliveryFees) {
         this.deliveryFees = deliveryFees;
     }
-    
+
     public RunnerStatusEnum getRunnerStatus() {
         return runnerStatus;
     }
