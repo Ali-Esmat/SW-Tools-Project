@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.project.model.Meal;
 import com.project.model.Restaurant;
-import com.project.utility.RestaurantReport;
+// import com.project.utility.RestaurantReport;
 
 @RequestScoped
 @Path("/")
@@ -70,7 +70,7 @@ public class RestaurantOwnerService {
 
     }
 
-    @GET
+   /*  @GET
     @Path("CreateRestaurantReport")
     // If a Restaurant with the requested primary key is not found in the database,
     // then the getRestaurantDetails() method returns null.
@@ -84,4 +84,5 @@ public class RestaurantOwnerService {
         return new RestaurantReport(restaurant);
     }
 
+    */
 }

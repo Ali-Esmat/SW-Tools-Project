@@ -1,11 +1,14 @@
 package com.project.service.response;
 
 import java.util.Date;
+import java.util.Set;
+
+import com.project.model.Meal;
 
 public class CustomerOrderResponse {
     private Date date;
 	private String restaurantName; 
-	private String meals;
+	private Set<Meal> meals;
 	private float deliveryFees;
     private String runnerName;
     private float totalReciptValue;
@@ -22,10 +25,10 @@ public class CustomerOrderResponse {
     public void setRestaurantName(String restaurantName) {
         this.restaurantName = restaurantName;
     }
-    public String getMeals() {
+    public Set<Meal> getMeals() {
         return meals;
     }
-    public void setMeals(String meals) {
+    public void setMeals(Set<Meal> meals) {
         this.meals = meals;
     }
     public float getDeliveryFees() {
@@ -46,7 +49,9 @@ public class CustomerOrderResponse {
     public void setTotalReciptValue(float totalReciptValue) {
         this.totalReciptValue = totalReciptValue;
     }
+    
 
+    
     
 
 }

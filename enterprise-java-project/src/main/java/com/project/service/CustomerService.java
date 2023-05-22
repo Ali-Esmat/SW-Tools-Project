@@ -1,15 +1,16 @@
 package com.project.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -27,6 +28,10 @@ import com.project.model.Meal;
 import com.project.model.Orders;
 import com.project.model.Restaurant;
 import com.project.model.Runner;
+import com.project.repo.OrderRepo;
+import com.project.repo.RunnerRepo;
+import com.project.repo.CustomerRepo;
+import com.project.repo.MealRepo;
 import com.project.service.request.CustomerOrderRequest;
 import com.project.service.response.CustomerOrderResponse;
 
@@ -37,63 +42,66 @@ import com.project.service.response.CustomerOrderResponse;
 public class CustomerService {
     @PersistenceContext(unitName = "project")
     private EntityManager em;
-    //@Context SecurityContext context.gerUserPrincipal.getName()
+
+    @Inject
+    RunnerRepo runnerRepo;
+
+    @Inject
+    OrderRepo orderRepo;
+
+    @Inject
+    MealRepo mealRepo;
+
+    @Inject
+    CustomerRepo customerRepo;
+
     @POST
     @RolesAllowed(RoleEnum.Constants.CUSTOMER_VALUE)
     public CustomerOrderResponse makeOrder(CustomerOrderRequest request, @Context SecurityContext context){
 
-        Orders order = new Orders();
+        float mealTotal = 0;
         //retrieve first runner with status avaliable via query (mark runner as busy)
-        Runner runner = em.createQuery("SELECT r FROM Runner r WHERE r.status = :status", Runner.class)
-        .setParameter("status", RunnerStatusEnum.AVAILABLE ).getSingleResult();
+        Runner runner = runnerRepo.getFirstFreeRunner();
+        if (runner == null)
+            throw new BadRequestException(ServiceUtil.createErrorResponse("No runner is currently avaliable"));
         runner.setStatus(RunnerStatusEnum.BUSY);
-        
-        // Runner attribute in order
-        order.setRunner(runner);
-        
 
-        // enumStatus attribute in order 
-        order.setStatus(OrderStatusEnum.PREPARING);
-        
-        // retrieve Meal instances via query (using meal id in a for loop)
         ArrayList<Integer> mealIds = request.getMealIds();
-        TypedQuery<Meal> mealQuery = em.createQuery("SELECT m FROM Meal m where m.id = ?1 ", Meal.class);
         Set<Meal> meals = new HashSet<Meal>();
         Meal tmpMeal = new Meal();
-        
-        for (int i = 0; i < request.getMealIds().size(); i++ ){
-            mealQuery.setParameter(1, request.getMealIds().get(i));
-            tmpMeal = mealQuery.getSingleResult();
-            meals.add(tmpMeal);
-        } 
 
+        // retrieve Meal instances via query (using meal id in a for loop)
+        for (int i = 0; i < mealIds.size(); i++ ){
+            tmpMeal = mealRepo.getMealById(mealIds.get(i));
+            mealTotal += tmpMeal.getPrice();
+            meals.add(tmpMeal);
+            
+        } 
         // retrieve Restaurant instance from one of the meals retrieved by the query
         Restaurant restaurant = tmpMeal.getRestaurant();
+        /* if (restaurant == null)
+        throw new BadRequestException(ServiceUtil.createErrorResponse("No restaurant is providing these meals")); */
 
-        // Restaurant attribute in order
-        order.setRestaurant(restaurant);
-        
-        // Set<Meals> attribute in order
-        order.setMeals(meals);
-        
-        TypedQuery<Customer> customerQuery = em.createQuery("SELECT m FROM Customer m where m.id = ?1 ", Customer.class);
-        customerQuery.setParameter(1, Integer.valueOf(context.getUserPrincipal().getName()));
-        Customer customer = customerQuery.getSingleResult();
-
-        // Customer attribute in order
-        order.setCustomer(customer);
-
-        Date date = new Date();
-        
-        // Date attribute in order
-        order.setDate(date);
+        // retrieve Customer instance from the database using the id from the user context 
+        Customer customer = customerRepo.selectCustomerById(Integer.valueOf(context.getUserPrincipal().getName()));
 
         // persist the order using the order repo
 
+        Orders order =  orderRepo.createOrder(runner, OrderStatusEnum.PREPARING, meals, restaurant, customer);
 
         /***********************************/
 
         // return the response message 
+
+        CustomerOrderResponse response = new CustomerOrderResponse();
+        response.setDate(order.getDate());
+        response.setRestaurantName(order.getRestaurant().getName());
+        response.setMeals(order.getMeals());
+        response.setDeliveryFees(runner.getDeliveryFees());
+        response.setRunnerName(runner.getUser().getName());
+        response.setTotalReciptValue(mealTotal += runner.getDeliveryFees());
+
+        return response;
 
     }
     
