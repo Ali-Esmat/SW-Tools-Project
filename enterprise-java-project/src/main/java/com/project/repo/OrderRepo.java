@@ -29,8 +29,7 @@ public class OrderRepo {
     @Inject
     MealRepo mealRepo;
 
-    public Orders createOrder(Runner runner, OrderStatusEnum status, Restaurant restaurant,
-            Customer customer) {
+    public Orders createOrder(Runner runner, OrderStatusEnum status, Restaurant restaurant, Customer customer) {
         Orders order = new Orders();
         order.setRunner(runner);
         order.setStatus(status);
@@ -41,16 +40,19 @@ public class OrderRepo {
         return order;
     }
 
-    public Orders editOrderMeals(int orderId, List<Integer> mealIds) {
+    public Orders editOrderMealsAndPrice(int orderId, List<Integer> mealIds, double fees) {
         Set<Meal> meals = new HashSet<Meal>();
+        double price = 0;
         for (int mealId : mealIds) {
             Meal meal = mealRepo.getMealById(mealId);
             meals.add(meal);
+            price += meal.getPrice();
         }
         Orders order = getOrderById(orderId);
         order.getMeals().forEach((m) -> m.getOrders().remove(order));
         order.setMeals(meals);
         order.getMeals().forEach((m) -> m.getOrders().add(order));
+        order.setPrice(price + fees);
         return order;
     }
 

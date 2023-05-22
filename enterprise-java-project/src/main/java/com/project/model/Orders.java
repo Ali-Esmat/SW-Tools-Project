@@ -22,6 +22,8 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private double price;
+
     @ManyToOne
     @JoinColumn(name = "runnerId") // Name of foreign key column in Orders table in database
     private Runner runner;
@@ -93,12 +95,20 @@ public class Orders {
         this.customer = customer;
     }
 
-    public Date getDate(){
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Date date){
+    public void setDate(Date date) {
         this.date = date;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
 }

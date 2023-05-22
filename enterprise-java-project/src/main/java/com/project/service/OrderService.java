@@ -1,7 +1,6 @@
 package com.project.service;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
@@ -36,7 +35,7 @@ import com.project.repo.MealRepo;
 import com.project.service.request.CustomerCreateOrderRequest;
 import com.project.service.request.CustomerEditOrderRequest;
 import com.project.service.response.MultipleOrdersResponse;
-import com.project.service.response.OrderWithReceiptResponse;
+import com.project.service.response.OrdersResponse;
 import com.project.service.util.ServiceUtil;
 
 @RequestScoped
@@ -73,16 +72,6 @@ public class OrderService {
         return new MultipleOrdersResponse(customer.getOrders());
     }
 
-    public float calculateOrderPrice(Orders order) {
-        Set<Meal> meals = order.getMeals();
-        float mealTotal = 0;
-        for (Meal meal : meals) {
-            mealTotal += meal.getPrice();
-        }
-        mealTotal += order.getRunner().getDeliveryFees();
-        return mealTotal;
-    }
-
     private void verifyMealIdsAgainstRestaurant(int restaurantId, List<Integer> mealIds) {
         if (mealIds == null || mealIds.isEmpty()) {
             throw new BadRequestException(ServiceUtil.createErrorResponse("No meals were provided"));
@@ -97,7 +86,7 @@ public class OrderService {
     }
 
     @POST
-    public OrderWithReceiptResponse makeOrder(@Context SecurityContext context, CustomerCreateOrderRequest request) {
+    public OrdersResponse makeOrder(@Context SecurityContext context, CustomerCreateOrderRequest request) {
         Runner runner = runnerRepo.getFirstFreeRunner();
         if (runner == null)
             throw new BadRequestException(ServiceUtil.createErrorResponse("No runner is currently available"));
@@ -111,15 +100,14 @@ public class OrderService {
 
         Customer customer = customerRepo.getCustomerById(ServiceUtil.getIdFromContext(context));
         Orders order = orderRepo.createOrder(runner, OrderStatusEnum.PREPARING, restaurant, customer);
-        Orders orderWithMeal = orderRepo.editOrderMeals(order.getId(), mealIds);
-        float totalPrice = calculateOrderPrice(orderWithMeal);
+        Orders orderWithMeal = orderRepo.editOrderMealsAndPrice(order.getId(), mealIds, runner.getDeliveryFees());
         runnerRepo.setRunnerStatus(runner.getUser().getId(), RunnerStatusEnum.BUSY);
-        return new OrderWithReceiptResponse(orderWithMeal, totalPrice);
+        return new OrdersResponse(orderWithMeal);
     }
 
     @PUT
     @Path("{id}")
-    public OrderWithReceiptResponse editOrder(@Context SecurityContext context, @PathParam("id") int id,
+    public OrdersResponse editOrder(@Context SecurityContext context, @PathParam("id") int id,
             CustomerEditOrderRequest request) {
         Orders order = orderRepo.getOrderById(id);
 
@@ -131,10 +119,8 @@ public class OrderService {
 
         List<Integer> mealIds = request.getMealIds();
         verifyMealIdsAgainstRestaurant(order.getRestaurant().getId(), mealIds);
-        Orders editedOrder = orderRepo.editOrderMeals(id, mealIds);
-        float editedOrderTotal = calculateOrderPrice(editedOrder);
-
-        return new OrderWithReceiptResponse(editedOrder, editedOrderTotal);
+        Orders editedOrder = orderRepo.editOrderMealsAndPrice(id, mealIds, order.getRunner().getDeliveryFees());
+        return new OrdersResponse(editedOrder);
     }
 
     public void setOrderStatus(int runnerUserId, int orderId, OrderStatusEnum status) {
