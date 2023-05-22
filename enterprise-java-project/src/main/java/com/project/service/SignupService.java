@@ -13,6 +13,7 @@ import com.project.repo.UserRepo;
 import com.project.service.request.CustomerRequest;
 import com.project.service.request.RestaurantOwnerRequest;
 import com.project.service.request.RunnerRequest;
+import com.project.service.util.ServiceUtil;
 
 @RequestScoped
 @Path("signup")

@@ -29,7 +29,8 @@ import com.project.repo.RunnerRepo;
 import com.project.repo.CustomerRepo;
 import com.project.repo.MealRepo;
 import com.project.service.request.CustomerOrderRequest;
-import com.project.service.response.CustomerOrderResponse;
+import com.project.service.response.OrdersResponse;
+import com.project.service.util.ServiceUtil;
 
 @RequestScoped
 @Path("customer")
@@ -50,7 +51,7 @@ public class CustomerService {
 
     @POST
     @RolesAllowed(RoleEnum.Constants.CUSTOMER_VALUE)
-    public CustomerOrderResponse makeOrder(CustomerOrderRequest request, @Context SecurityContext context) {
+    public OrdersResponse makeOrder(CustomerOrderRequest request, @Context SecurityContext context) {
 
         float mealTotal = 0;
         // retrieve first runner with status avaliable via query (mark runner as busy)
@@ -90,7 +91,7 @@ public class CustomerService {
 
         // return the response message
 
-        CustomerOrderResponse response = new CustomerOrderResponse();
+        OrdersResponse response = new OrdersResponse();
         response.setDate(order.getDate());
         response.setRestaurantName(order.getRestaurant().getName());
         response.setMeals(order.getMeals());

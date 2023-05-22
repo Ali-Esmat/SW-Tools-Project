@@ -21,6 +21,8 @@ import com.project.model.Restaurant;
 import com.project.repo.MealRepo;
 import com.project.repo.RestaurantRepo;
 import com.project.service.request.MealRequest;
+import com.project.service.response.MealResponse;
+import com.project.service.util.ServiceUtil;
 
 @RequestScoped
 @Path("restaurant/meal")
@@ -35,12 +37,13 @@ public class MealService {
     private MealRepo mealRepo;
 
     @POST
-    public Meal createMeal(@Context SecurityContext context, MealRequest request) {
+    public MealResponse createMeal(@Context SecurityContext context, MealRequest request) {
         Restaurant restaurant = restaurantRepo
                 .getRestaurantForRestaurantOwner(ServiceUtil.getIdFromContext(context));
         if (restaurant == null)
             throw new BadRequestException(ServiceUtil.createErrorResponse("You do not have any restaurants"));
-        return mealRepo.createMealForRestaurant(restaurant, request.getName(), request.getPrice());
+        Meal meal = mealRepo.createMealForRestaurant(restaurant, request.getName(), request.getPrice());
+        return new MealResponse(meal);
     }
 
     private Meal mealOrFailIfDoesNotOwnMeal(SecurityContext context, int id) {
@@ -54,10 +57,10 @@ public class MealService {
 
     @PUT
     @Path("{id}")
-    public Meal editMeal(@Context SecurityContext context, @PathParam("id") int id, MealRequest request) {
+    public MealResponse editMeal(@Context SecurityContext context, @PathParam("id") int id, MealRequest request) {
         Meal meal = mealOrFailIfDoesNotOwnMeal(context, id);
         mealRepo.editMeal(meal, request.getName(), request.getPrice());
-        return meal;
+        return new MealResponse(meal);
     }
 
     @DELETE

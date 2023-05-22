@@ -17,9 +17,7 @@ public class RestaurantRepo {
     private EntityManager em;
 
     private RestaurantOwner getRestaurantOwnerById(int ownerId) {
-        TypedQuery<User> userQuery = em.createQuery(
-                "select u from User u where u.id = :id join fetch u.restaurantOwner",
-                User.class);
+        TypedQuery<User> userQuery = em.createQuery("select u from User u where u.id = :id", User.class);
         userQuery.setParameter("id", ownerId);
         User user = userQuery.getSingleResult();
         return user.getRestaurantOwner();

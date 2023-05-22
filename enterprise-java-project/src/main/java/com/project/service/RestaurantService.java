@@ -19,6 +19,7 @@ import com.project.model.Restaurant;
 import com.project.repo.RestaurantRepo;
 import com.project.service.request.RestaurantRequest;
 import com.project.service.response.RestaurantResponse;
+import com.project.service.util.ServiceUtil;
 
 @RequestScoped
 @Path("restaurant")
@@ -30,8 +31,9 @@ public class RestaurantService {
     private RestaurantRepo repo;
 
     @POST
-    public Restaurant createRestaurant(@Context SecurityContext context, RestaurantRequest request) {
-        return repo.createRestaurant(ServiceUtil.getIdFromContext(context), request.getName());
+    public RestaurantResponse createRestaurant(@Context SecurityContext context, RestaurantRequest request) {
+        Restaurant r = repo.createRestaurant(ServiceUtil.getIdFromContext(context), request.getName());
+        return new RestaurantResponse(r);
     }
 
     /*
@@ -48,7 +50,8 @@ public class RestaurantService {
     @RolesAllowed(RoleEnum.Constants.CUSTOMER_VALUE)
     @GET
     @Path("all")
-    public List<Restaurant> getAllRestaurants() {
-        return repo.getAllRestaurants();
+    public List<RestaurantResponse> getAllRestaurants() {
+        List<Restaurant> restaurants = repo.getAllRestaurants();
+        return ServiceUtil.entitiesToResponses(restaurants, (r) -> new RestaurantResponse(r));
     }
 }

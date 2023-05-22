@@ -13,6 +13,7 @@ import com.project.model.User;
 import com.project.repo.UserRepo;
 import com.project.service.request.LoginRequest;
 import com.project.service.response.LoginResponse;
+import com.project.service.util.ServiceUtil;
 
 @RequestScoped
 @Path("login")

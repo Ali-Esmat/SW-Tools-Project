@@ -5,7 +5,7 @@ import java.util.Set;
 
 import com.project.model.Meal;
 
-public class CustomerOrderResponse {
+public class OrdersResponse {
     private Date date;
     private String restaurantName;
     private Set<Meal> meals;

@@ -21,7 +21,7 @@ public class Runner {
     @NotNull
     private float deliveryFees;
     @NotNull
-    public RunnerStatusEnum status;
+    private RunnerStatusEnum status;
     @OneToOne(optional = false)
     @JoinColumn(name = "userId")
     private User user;
