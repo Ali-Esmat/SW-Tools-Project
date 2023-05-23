@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { sendRequest } from '../http';
-import { ErrorResponse } from '../types/ErrorResponse';
 
 export const CreateRestaurant = () => {
   const [name, setName] = useState('');
@@ -8,10 +7,7 @@ export const CreateRestaurant = () => {
     const res = await sendRequest('POST', 'restaurant', {
       name
     });
-    if (res.status === 400) {
-      const body: ErrorResponse = await res.json();
-      alert(body.error);
-    } else if (res.ok) {
+    if (res.ok) {
       alert('Success!');
     }
   };

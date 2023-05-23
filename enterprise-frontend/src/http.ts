@@ -1,4 +1,5 @@
 import { appConstants } from './appConstants';
+import { ErrorResponse } from './types/ErrorResponse';
 import { RequestMethod } from './types/RequestMethod';
 
 export const sendRequest = async (method: RequestMethod, url: string, body: any = null) => {
@@ -17,12 +18,15 @@ export const sendRequest = async (method: RequestMethod, url: string, body: any 
     if (response.status === 401 || response.status === 403) {
       localStorage.removeItem(appConstants.TOKEN_ITEM);
       window.location.reload();
-    }
-    if (response.status === 500) {
-      alert('AN error has occurred');
+    } else if (response.status === 500) {
+      alert('An error has occurred');
+    } else if (response.status === 400) {
+      const body: ErrorResponse = await response.json();
+      alert(body.error);
     }
   } catch (e) {
     console.log(e);
+    alert("Resetting token")
     localStorage.removeItem(appConstants.TOKEN_ITEM);
     window.location.reload();
   }

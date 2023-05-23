@@ -7,9 +7,10 @@ export const MyRestaurant = () => {
   useEffect(() => {
     async function initRestaurant() {
       const res = await sendRequest('GET', 'restaurant');
-      if (res.status >= 400) return;
-      const r: Restaurant = await res.json();
-      setRestaurant(r);
+      if (res.ok) {
+        const r: Restaurant = await res.json();
+        setRestaurant(r);
+      }
     }
     initRestaurant();
   }, []);
@@ -20,10 +21,22 @@ export const MyRestaurant = () => {
         <p>You do not seem to have any restaurants, create one.</p>
       ) : (
         <div>
-          <span><b>ID:</b> {restaurant.id}</span> <br />
-          <span><b>Name:</b> {restaurant.name}</span> <br />
-          <span><b>Owner name:</b> {restaurant.owner.name}</span> <br />
-          <span><b>Menu</b></span> <br />
+          <span>
+            <b>ID:</b> {restaurant.id}
+          </span>
+          <br />
+          <span>
+            <b>Name:</b> {restaurant.name}
+          </span>
+          <br />
+          <span>
+            <b>Owner name:</b> {restaurant.owner.name}
+          </span>
+          <br />
+          <span>
+            <b>Menu</b>
+          </span>
+          <br />
           <ul>
             {restaurant.menu.map((meal) => (
               <li key={meal.id}>

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { sendRequest } from '../http';
-import { ErrorResponse } from '../types/ErrorResponse';
 
 interface UsernamePasswordFormProps {
   actionName: string;
@@ -14,13 +13,8 @@ export const UsernamePasswordForm = (props: UsernamePasswordFormProps) => {
 
   const login = async () => {
     const response = await sendRequest('POST', props.endpoint, { name, password });
-    if (response.status === 400) {
-      const body: ErrorResponse = await response.json();
-      alert(body.error);
-    } else if (response.ok) {
+    if (response.ok) {
       props.onSuccess(response);
-    } else if (response.status >= 400) {
-      alert('An error has occurred');
     }
   };
 
