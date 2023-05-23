@@ -40,7 +40,7 @@ export const MyRestaurant = () => {
           <ul>
             {restaurant.menu.map((meal) => (
               <li key={meal.id}>
-                {meal.name} - {meal.price}$
+                {meal.name} - {meal.price}$ (#{meal.id})
               </li>
             ))}
           </ul>

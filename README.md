@@ -29,3 +29,10 @@ Ensure a JBOSS EAP 7.1 server is running and from `enterprise-java-project` depl
 cd enterprise-java-project/
 mvn clean wildfly:deploy
 ```
+
+To run the front-end
+
+```bash
+cd enterprise-frontend
+npm start
+```

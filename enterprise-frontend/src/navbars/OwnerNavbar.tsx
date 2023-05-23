@@ -3,6 +3,7 @@ import { Navbar } from './Navbar';
 import { MyRestaurant } from '../pages/MyRestaurant';
 import { CreateRestaurant } from '../pages/CreateRestaurant';
 import { CreateMeal } from '../pages/CreateMeal';
+import { EditMeal } from '../pages/EditMeal';
 
 interface OwnerNavbarProps {
   setPage: (page: React.JSX.Element) => void;
@@ -15,7 +16,8 @@ export const OwnerNavbar = ({ setPage }: OwnerNavbarProps) => {
       pages={{
         'My restaurant': <MyRestaurant />,
         'Create restaurant': <CreateRestaurant />,
-        'Create meal': <CreateMeal />
+        'Create meal': <CreateMeal />,
+        'Edit meal': <EditMeal />
       }}
     />
   );
