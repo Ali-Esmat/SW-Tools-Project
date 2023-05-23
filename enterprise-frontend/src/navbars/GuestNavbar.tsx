@@ -1,6 +1,7 @@
 import React from 'react';
 import { SignupOwner } from '../pages/SignupOwner';
 import { Login } from '../pages/Login';
+import { Navbar } from './Navbar';
 
 interface GuestNavbarProps {
   setPage: (page: React.JSX.Element) => void;
@@ -8,9 +9,12 @@ interface GuestNavbarProps {
 
 export const GuestNavbar = ({ setPage }: GuestNavbarProps) => {
   return (
-    <div>
-      <button onClick={() => setPage(<SignupOwner />)}>Signup owner</button>
-      <button onClick={() => setPage(<Login />)}>Login</button>
-    </div>
+    <Navbar
+      setPage={setPage}
+      pages={{
+        'Signup owner': <SignupOwner />,
+        Login: <Login />
+      }}
+    />
   );
 };

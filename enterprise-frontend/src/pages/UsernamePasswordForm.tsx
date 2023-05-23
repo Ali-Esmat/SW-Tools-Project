@@ -17,9 +17,9 @@ export const UsernamePasswordForm = (props: UsernamePasswordFormProps) => {
     if (response.status === 400) {
       const body: ErrorResponse = await response.json();
       alert(body.error);
-    } else if (response.status === 200) {
+    } else if (response.ok) {
       props.onSuccess(response);
-    } else {
+    } else if (response.status >= 400) {
       alert('An error has occurred');
     }
   };

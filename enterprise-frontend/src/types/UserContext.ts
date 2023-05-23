@@ -1,5 +1,5 @@
 export interface UserContext {
   id: number;
   name: string;
-  role: 'RUNNER' | 'CUSTOMER' | 'OWNER';
+  role: 'RUNNER' | 'CUSTOMER' | 'RESTAURANT_OWNER';
 }
