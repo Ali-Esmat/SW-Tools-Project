@@ -14,18 +14,21 @@ export const CreateMeal = () => {
     }
   };
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
-      <input placeholder="Meal name" value={name} onChange={(e) => setName(e.target.value)} />
-      <br />
-      <input
-        placeholder="Meal price"
-        value={priceStr}
-        type="number"
-        step="0.001"
-        onChange={(e) => setPriceStr(e.target.value)}
-      />
-      <br />
-      <button onClick={create}>Create</button>
-    </form>
+    <div>
+      <h1>Create meal</h1>
+      <form onSubmit={(e) => e.preventDefault()}>
+        <input placeholder="Meal name" value={name} onChange={(e) => setName(e.target.value)} />
+        <br />
+        <input
+          placeholder="Meal price"
+          value={priceStr}
+          type="number"
+          step="0.001"
+          onChange={(e) => setPriceStr(e.target.value)}
+        />
+        <br />
+        <button onClick={create}>Create</button>
+      </form>
+    </div>
   );
 };
