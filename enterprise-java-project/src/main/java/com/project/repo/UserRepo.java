@@ -63,6 +63,12 @@ public class UserRepo {
         return user;
     }
 
+    public User getUserById(int id) {
+        TypedQuery<User> query = em.createQuery("select u from User u where u.id = :id", User.class);
+        query.setParameter("id", id);
+        return RepoUtil.getFirstResultOrNull(query);
+    }
+
     public User getUserByNameAndPassword(String name, String password) {
         TypedQuery<User> query = em.createQuery(
                 "select u from User u where u.name = :name and u.password = :password",

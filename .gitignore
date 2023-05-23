@@ -3,3 +3,4 @@ build.metadata
 .classpath
 .settings/
 .project
+node_modules/
