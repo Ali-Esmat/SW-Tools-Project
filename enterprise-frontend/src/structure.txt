@@ -1,0 +1,24 @@
+Structure
+- UserContext {
+    id: number,
+    name: String,
+    role: Role
+}
+
+- App component
+    - If no localStorage, userContext = null
+    - If localStorage
+        - Get user from API using credentials in local storage
+        - If error,
+            - Clear localStorage, userContext = null
+        - If response,
+            - userContext = context received
+    - curPage = <Login> (userContext === null) | null (otherwise)
+    - page, setPage = useState(curPage)
+    - Title with user name, log out
+    - Guest navbar (userContext === null)
+        | Owner navbar (userContext.role === OWNER)
+        | Customer navbar (userContext.role === CUSTOMER)
+        | Runner Navbar (userContext.role === RUNNER)
+        - Send them setPage()
+    - page
